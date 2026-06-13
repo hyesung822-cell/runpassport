@@ -1,20 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-<title>Identity</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RunPassport - Identity</title>
 </head>
+
 <body>
 
-<h1>The Endurance Seeker</h1>
+<h1>Identity</h1>
 
-<p>
-Distance doesn't intimidate you.
-You define yourself through consistency.
-</p>
+<p>해금된 정체성 목록</p>
+
+<ul id="identity-list">
+</ul>
 
 <br>
 
-<a href="index.html">Home</a>
+<a href="index.html">Home으로 이동</a>
+
+<script>
+
+fetch('./data/identities.json')
+  .then(response => response.json())
+
+  .then(identities => {
+
+    const list =
+      document.getElementById('identity-list');
+
+    identities.forEach(identity => {
+
+      const item =
+        document.createElement('li');
+
+      item.textContent =
+        identity.name +
+        " (" +
+        identity.rarity +
+        ")";
+
+      list.appendChild(item);
+
+    });
+
+  });
+
+</script>
 
 </body>
 </html>
