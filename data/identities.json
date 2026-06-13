@@ -1,0 +1,42 @@
+[
+  {
+    "id": "dawn_hunter",
+    "name": "새벽 사냥꾼",
+    "rarity": "rare"
+  },
+  {
+    "id": "moon_tracker",
+    "name": "달빛 추적자",
+    "rarity": "rare"
+  },
+  {
+    "id": "pathfinder",
+    "name": "의지의 개척자",
+    "rarity": "epic"
+  },
+  {
+    "id": "routine_master",
+    "name": "루틴의 지배자",
+    "rarity": "legendary"
+  },
+  {
+    "id": "growing_runner",
+    "name": "성장하는 러너",
+    "rarity": "rare"
+  },
+  {
+    "id": "record_breaker",
+    "name": "기록 파괴자",
+    "rarity": "epic"
+  },
+  {
+    "id": "road_explorer",
+    "name": "길의 개척자",
+    "rarity": "rare"
+  },
+  {
+    "id": "nomad_runner",
+    "name": "노마드 러너",
+    "rarity": "legendary"
+  }
+]

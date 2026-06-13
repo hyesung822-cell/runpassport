@@ -1,0 +1,122 @@
+[
+  {
+    "id": "time_001",
+    "name": "첫 발걸음",
+    "category": "time",
+    "rarity": "common"
+  },
+  {
+    "id": "time_002",
+    "name": "새벽 입문자",
+    "category": "time",
+    "rarity": "common"
+  },
+  {
+    "id": "time_006",
+    "name": "새벽 러너",
+    "category": "time",
+    "rarity": "rare"
+  },
+  {
+    "id": "time_010",
+    "name": "새벽 마스터",
+    "category": "time",
+    "rarity": "rare"
+  },
+  {
+    "id": "habit_001",
+    "name": "불씨",
+    "category": "habit",
+    "rarity": "common"
+  },
+  {
+    "id": "habit_003",
+    "name": "꾸준러",
+    "category": "habit",
+    "rarity": "common"
+  },
+  {
+    "id": "habit_004",
+    "name": "강철 멘탈",
+    "category": "habit",
+    "rarity": "rare"
+  },
+  {
+    "id": "habit_006",
+    "name": "루틴 빌더",
+    "category": "habit",
+    "rarity": "rare"
+  },
+  {
+    "id": "distance_001",
+    "name": "첫 5K",
+    "category": "distance",
+    "rarity": "common"
+  },
+  {
+    "id": "distance_002",
+    "name": "첫 10K",
+    "category": "distance",
+    "rarity": "common"
+  },
+  {
+    "id": "distance_007",
+    "name": "100km 클럽",
+    "category": "distance",
+    "rarity": "rare"
+  },
+  {
+    "id": "distance_010",
+    "name": "1000km 클럽",
+    "category": "distance",
+    "rarity": "epic"
+  },
+  {
+    "id": "passport_001",
+    "name": "동네 탐험가",
+    "category": "passport",
+    "rarity": "common"
+  },
+  {
+    "id": "passport_002",
+    "name": "도시 탐험가",
+    "category": "passport",
+    "rarity": "common"
+  },
+  {
+    "id": "passport_007",
+    "name": "5도시 러너",
+    "category": "passport",
+    "rarity": "rare"
+  },
+  {
+    "id": "passport_013",
+    "name": "5개국 러너",
+    "category": "passport",
+    "rarity": "legendary"
+  },
+  {
+    "id": "growth_001",
+    "name": "첫 PB",
+    "category": "growth",
+    "rarity": "common"
+  },
+  {
+    "id": "growth_003",
+    "name": "10초 단축",
+    "category": "growth",
+    "rarity": "rare"
+  },
+  {
+    "id": "growth_005",
+    "name": "1분 단축",
+    "category": "growth",
+    "rarity": "epic"
+  },
+  {
+    "id": "growth_009",
+    "name": "기록 파괴자",
+    "category": "growth",
+    "rarity": "legendary"
+  }
+]
