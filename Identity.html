@@ -12,8 +12,7 @@
 
 <p>해금된 정체성 목록</p>
 
-<ul id="identity-list">
-</ul>
+<ul id="identity-list"></ul>
 
 <br>
 
@@ -23,7 +22,6 @@
 
 fetch('./data/identities.json')
   .then(response => response.json())
-
   .then(identities => {
 
     const list =
