@@ -1,22 +1,38 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="ko">
 <head>
-<title>Passport</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RunPassport - Passport</title>
 </head>
+
 <body>
 
 <h1>Passport</h1>
 
-<ul id="card-list"></ul>
+<p>획득한 카드 목록</p>
+
+<ul id="card-list">
+</ul>
 
 <br>
 
-<a href="index.html">Home</a>
+<a href="index.html">Home으로 이동</a>
 
 <script>
+
 fetch('./data/cards.json')
-  .then(response => response.json())
+  .then(response => {
+
+    if (!response.ok) {
+      throw new Error("cards.json 불러오기 실패");
+    }
+
+    return response.json();
+
+  })
+
   .then(cards => {
 
     const list = document.getElementById('card-list');
@@ -27,15 +43,27 @@ fetch('./data/cards.json')
 
       item.textContent =
         card.name +
-        ' (' +
+        " (" +
         card.rarity +
-        ')';
+        ")";
 
       list.appendChild(item);
 
     });
 
+    console.log("카드 로딩 성공:", cards.length);
+
+  })
+
+  .catch(error => {
+
+    console.error(error);
+
+    document.getElementById('card-list').innerHTML =
+      "<li>카드를 불러오지 못했습니다.</li>";
+
   });
+
 </script>
 
 </body>
