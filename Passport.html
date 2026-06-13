@@ -1,26 +1,42 @@
 <!DOCTYPE html>
+
 <html>
 <head>
-  <title>Passport</title>
+<title>Passport</title>
 </head>
 <body>
 
 <h1>Passport</h1>
 
-<h2>Unlocked Cards</h2>
+<ul id="card-list"></ul>
 
-<ul>
-  <li>첫 발걸음</li>
-  <li>새벽 입문자</li>
-  <li>불씨</li>
-  <li>첫 5K</li>
-</ul>
+<br>
 
-<hr>
+<a href="index.html">Home</a>
 
-<p>Total Cards: 20</p>
+<script>
+fetch('./data/cards.json')
+  .then(response => response.json())
+  .then(cards => {
 
-<a href="Home.html">Home</a>
+    const list = document.getElementById('card-list');
+
+    cards.forEach(card => {
+
+      const item = document.createElement('li');
+
+      item.textContent =
+        card.name +
+        ' (' +
+        card.rarity +
+        ')';
+
+      list.appendChild(item);
+
+    });
+
+  });
+</script>
 
 </body>
 </html>
