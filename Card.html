@@ -1,54 +1,70 @@
 <!DOCTYPE html>
+
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>RunPassport Card</title>
 
 <style>
 
 body{
-background:#0B1023;
-color:white;
-font-family:sans-serif;
-max-width:430px;
-margin:auto;
-padding:20px;
+    background:#0B1023;
+    color:white;
+    font-family:sans-serif;
+    max-width:430px;
+    margin:auto;
+    padding:20px;
 }
 
 .card{
-background:#1C2550;
-border-radius:20px;
-padding:20px;
-margin-top:20px;
+    background:#1C2550;
+    border-radius:24px;
+    padding:24px;
+    text-align:center;
+}
+
+.icon{
+    font-size:64px;
+    margin-bottom:12px;
 }
 
 .name{
-font-size:32px;
-font-weight:bold;
+    font-size:32px;
+    font-weight:bold;
 }
 
 .rarity{
-margin-top:10px;
-opacity:0.7;
+    margin-top:10px;
+    font-size:14px;
+    font-weight:bold;
 }
 
+.common{color:#C9CDD4;}
+.rare{color:#4DA3FF;}
+.epic{color:#B06CFF;}
+.legendary{color:#F5C451;}
+
 .section{
-margin-top:25px;
+    margin-top:24px;
+    text-align:left;
 }
 
 .label{
-color:#D4A63D;
-margin-bottom:8px;
+    color:#D4A63D;
+    margin-bottom:8px;
+    font-weight:bold;
 }
 
 .value{
-line-height:1.5;
+    line-height:1.6;
 }
 
-a{
-color:#D4A63D;
+.back{
+    display:inline-block;
+    margin-top:20px;
+    color:#D4A63D;
+    text-decoration:none;
 }
 
 </style>
@@ -58,6 +74,8 @@ color:#D4A63D;
 <body>
 
 <div class="card">
+
+<div id="card-icon" class="icon">🏅</div>
 
 <div id="card-name" class="name">
 Loading...
@@ -84,13 +102,22 @@ Loading...
 
 </div>
 
-<br>
-
-<a href="Passport.html">
+<a class="back" href="Passport.html">
 ← Passport
 </a>
 
 <script>
+
+function getIcon(category){
+
+    if(category==="time") return "⏰";
+    if(category==="habit") return "🔥";
+    if(category==="distance") return "🏃";
+    if(category==="passport") return "🌍";
+    if(category==="growth") return "📈";
+
+    return "🏅";
+}
 
 const params =
 new URLSearchParams(window.location.search);
@@ -107,11 +134,19 @@ cards.find(c=>c.id===cardId);
 
 if(!card) return;
 
+document.getElementById('card-icon')
+.innerText = getIcon(card.category);
+
 document.getElementById('card-name')
 .innerText = card.name;
 
-document.getElementById('card-rarity')
-.innerText = card.rarity;
+const rarity =
+document.getElementById('card-rarity');
+
+rarity.innerText =
+card.rarity.toUpperCase();
+
+rarity.classList.add(card.rarity);
 
 document.getElementById('card-description')
 .innerText = card.description;
@@ -120,7 +155,7 @@ document.getElementById('card-condition')
 .innerText = card.condition;
 
 document.getElementById('card-category')
-.innerText = card.category;
+.innerText = card.category.toUpperCase();
 
 });
 
