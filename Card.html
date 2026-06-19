@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Card</title>
+<title>RunPassport Card</title>
 
 <style>
 
@@ -19,9 +19,14 @@ padding:20px;
 
 .card{
 background:#1C2550;
-padding:20px;
 border-radius:20px;
+padding:20px;
 margin-top:20px;
+}
+
+.name{
+font-size:32px;
+font-weight:bold;
 }
 
 .rarity{
@@ -30,7 +35,16 @@ opacity:0.7;
 }
 
 .section{
-margin-top:20px;
+margin-top:25px;
+}
+
+.label{
+color:#D4A63D;
+margin-bottom:8px;
+}
+
+.value{
+line-height:1.5;
 }
 
 a{
@@ -38,26 +52,34 @@ color:#D4A63D;
 }
 
 </style>
+
 </head>
 
 <body>
 
-<h1 id="card-name">
-Loading...
-</h1>
-
 <div class="card">
 
-<div id="card-rarity">
+<div id="card-name" class="name">
+Loading...
+</div>
+
+<div id="card-rarity" class="rarity">
 Loading...
 </div>
 
 <div class="section">
+<div class="label">설명</div>
+<div id="card-description" class="value"></div>
+</div>
 
-<b>Category</b>
+<div class="section">
+<div class="label">획득 조건</div>
+<div id="card-condition" class="value"></div>
+</div>
 
-<div id="card-category"></div>
-
+<div class="section">
+<div class="label">카테고리</div>
+<div id="card-category" class="value"></div>
 </div>
 
 </div>
@@ -65,15 +87,13 @@ Loading...
 <br>
 
 <a href="Passport.html">
-Back
+← Passport
 </a>
 
 <script>
 
 const params =
-new URLSearchParams(
-window.location.search
-);
+new URLSearchParams(window.location.search);
 
 const cardId =
 params.get("id");
@@ -83,9 +103,7 @@ fetch('./data/cards.json')
 .then(cards=>{
 
 const card =
-cards.find(
-c => c.id === cardId
-);
+cards.find(c=>c.id===cardId);
 
 if(!card) return;
 
@@ -94,6 +112,12 @@ document.getElementById('card-name')
 
 document.getElementById('card-rarity')
 .innerText = card.rarity;
+
+document.getElementById('card-description')
+.innerText = card.description;
+
+document.getElementById('card-condition')
+.innerText = card.condition;
 
 document.getElementById('card-category')
 .innerText = card.category;

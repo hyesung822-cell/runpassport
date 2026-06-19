@@ -1,122 +1,166 @@
 [
-  {
-    "id": "time_001",
-    "name": "첫 발걸음",
-    "category": "time",
-    "rarity": "common"
-  },
-  {
-    "id": "time_002",
-    "name": "새벽 입문자",
-    "category": "time",
-    "rarity": "common"
-  },
-  {
-    "id": "time_006",
-    "name": "새벽 러너",
-    "category": "time",
-    "rarity": "rare"
-  },
-  {
-    "id": "time_010",
-    "name": "새벽 마스터",
-    "category": "time",
-    "rarity": "rare"
-  },
-  {
-    "id": "habit_001",
-    "name": "불씨",
-    "category": "habit",
-    "rarity": "common"
-  },
-  {
-    "id": "habit_003",
-    "name": "꾸준러",
-    "category": "habit",
-    "rarity": "common"
-  },
-  {
-    "id": "habit_004",
-    "name": "강철 멘탈",
-    "category": "habit",
-    "rarity": "rare"
-  },
-  {
-    "id": "habit_006",
-    "name": "루틴 빌더",
-    "category": "habit",
-    "rarity": "rare"
-  },
-  {
-    "id": "distance_001",
-    "name": "첫 5K",
-    "category": "distance",
-    "rarity": "common"
-  },
-  {
-    "id": "distance_002",
-    "name": "첫 10K",
-    "category": "distance",
-    "rarity": "common"
-  },
-  {
-    "id": "distance_007",
-    "name": "100km 클럽",
-    "category": "distance",
-    "rarity": "rare"
-  },
-  {
-    "id": "distance_010",
-    "name": "1000km 클럽",
-    "category": "distance",
-    "rarity": "epic"
-  },
-  {
-    "id": "passport_001",
-    "name": "동네 탐험가",
-    "category": "passport",
-    "rarity": "common"
-  },
-  {
-    "id": "passport_002",
-    "name": "도시 탐험가",
-    "category": "passport",
-    "rarity": "common"
-  },
-  {
-    "id": "passport_007",
-    "name": "5도시 러너",
-    "category": "passport",
-    "rarity": "rare"
-  },
-  {
-    "id": "passport_013",
-    "name": "5개국 러너",
-    "category": "passport",
-    "rarity": "legendary"
-  },
-  {
-    "id": "growth_001",
-    "name": "첫 PB",
-    "category": "growth",
-    "rarity": "common"
-  },
-  {
-    "id": "growth_003",
-    "name": "10초 단축",
-    "category": "growth",
-    "rarity": "rare"
-  },
-  {
-    "id": "growth_005",
-    "name": "1분 단축",
-    "category": "growth",
-    "rarity": "epic"
-  },
-  {
-    "id": "growth_009",
-    "name": "기록 파괴자",
-    "category": "growth",
-    "rarity": "legendary"
-  }
+{
+"id": "time_001",
+"name": "첫 발걸음",
+"category": "time",
+"rarity": "common",
+"description": "모든 러너의 시작",
+"condition": "첫 러닝 완료"
+},
+{
+"id": "time_002",
+"name": "새벽 입문자",
+"category": "time",
+"rarity": "common",
+"description": "고요한 새벽 공기를 처음 마셨다",
+"condition": "오전 6시 이전 러닝 1회"
+},
+{
+"id": "time_006",
+"name": "새벽 러너",
+"category": "time",
+"rarity": "rare",
+"description": "새벽 러닝이 습관이 되기 시작했다",
+"condition": "오전 6시 이전 러닝 10회"
+},
+{
+"id": "time_010",
+"name": "새벽 마스터",
+"category": "time",
+"rarity": "rare",
+"description": "해 뜨기 전 거리를 지배한다",
+"condition": "오전 6시 이전 러닝 50회"
+},
+
+{
+"id": "habit_001",
+"name": "불씨",
+"category": "habit",
+"rarity": "common",
+"description": "습관의 불꽃이 피어오른다",
+"condition": "3일 연속 러닝"
+},
+{
+"id": "habit_003",
+"name": "꾸준러",
+"category": "habit",
+"rarity": "common",
+"description": "포기하지 않고 계속 달린다",
+"condition": "7일 연속 러닝"
+},
+{
+"id": "habit_004",
+"name": "강철 멘탈",
+"category": "habit",
+"rarity": "rare",
+"description": "비가 와도 멈추지 않는다",
+"condition": "14일 연속 러닝"
+},
+{
+"id": "habit_006",
+"name": "루틴 빌더",
+"category": "habit",
+"rarity": "rare",
+"description": "달리기가 삶의 일부가 되었다",
+"condition": "30일 연속 러닝"
+},
+
+{
+"id": "distance_001",
+"name": "첫 5K",
+"category": "distance",
+"rarity": "common",
+"description": "5km의 벽을 넘어섰다",
+"condition": "누적 5km 달성"
+},
+{
+"id": "distance_002",
+"name": "첫 10K",
+"category": "distance",
+"rarity": "common",
+"description": "두 자릿수 거리를 정복했다",
+"condition": "누적 10km 달성"
+},
+{
+"id": "distance_007",
+"name": "100km 클럽",
+"category": "distance",
+"rarity": "rare",
+"description": "이제 진짜 러너라 불릴 만하다",
+"condition": "누적 100km 달성"
+},
+{
+"id": "distance_010",
+"name": "1000km 클럽",
+"category": "distance",
+"rarity": "epic",
+"description": "천 킬로미터의 여정을 완주했다",
+"condition": "누적 1000km 달성"
+},
+
+{
+"id": "passport_001",
+"name": "동네 탐험가",
+"category": "passport",
+"rarity": "common",
+"description": "익숙한 동네를 새로운 시선으로 달렸다",
+"condition": "1개 지역 러닝"
+},
+{
+"id": "passport_002",
+"name": "도시 탐험가",
+"category": "passport",
+"rarity": "common",
+"description": "도시를 발로 탐험하기 시작했다",
+"condition": "3개 지역 러닝"
+},
+{
+"id": "passport_007",
+"name": "5도시 러너",
+"category": "passport",
+"rarity": "rare",
+"description": "다섯 개 도시를 러닝으로 연결했다",
+"condition": "5개 도시 방문"
+},
+{
+"id": "passport_013",
+"name": "5개국 러너",
+"category": "passport",
+"rarity": "legendary",
+"description": "국경을 넘어 달리는 진정한 노마드",
+"condition": "5개 국가 러닝"
+},
+
+{
+"id": "growth_001",
+"name": "첫 PB",
+"category": "growth",
+"rarity": "common",
+"description": "처음으로 자신의 기록을 넘어섰다",
+"condition": "개인 최고 기록 달성"
+},
+{
+"id": "growth_003",
+"name": "10초 단축",
+"category": "growth",
+"rarity": "rare",
+"description": "작지만 의미 있는 성장",
+"condition": "PB 10초 단축"
+},
+{
+"id": "growth_005",
+"name": "1분 단축",
+"category": "growth",
+"rarity": "epic",
+"description": "놀라운 발전을 증명했다",
+"condition": "PB 1분 단축"
+},
+{
+"id": "growth_009",
+"name": "기록 파괴자",
+"category": "growth",
+"rarity": "legendary",
+"description": "과거의 자신을 완전히 뛰어넘었다",
+"condition": "PB 5분 단축"
+}
 ]
