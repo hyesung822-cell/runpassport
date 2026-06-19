@@ -1,42 +1,66 @@
 [
-  {
-    "id": "dawn_hunter",
-    "name": "새벽 사냥꾼",
-    "rarity": "rare"
-  },
-  {
-    "id": "moon_tracker",
-    "name": "달빛 추적자",
-    "rarity": "rare"
-  },
-  {
-    "id": "pathfinder",
-    "name": "의지의 개척자",
-    "rarity": "epic"
-  },
-  {
-    "id": "routine_master",
-    "name": "루틴의 지배자",
-    "rarity": "legendary"
-  },
-  {
-    "id": "growing_runner",
-    "name": "성장하는 러너",
-    "rarity": "rare"
-  },
-  {
-    "id": "record_breaker",
-    "name": "기록 파괴자",
-    "rarity": "epic"
-  },
-  {
-    "id": "road_explorer",
-    "name": "길의 개척자",
-    "rarity": "rare"
-  },
-  {
-    "id": "nomad_runner",
-    "name": "노마드 러너",
-    "rarity": "legendary"
-  }
+{
+"id": "dawn_hunter",
+"name": "새벽 사냥꾼",
+"rarity": "rare",
+"icon": "🌅",
+"description": "새벽 공기를 가장 사랑하는 러너",
+"condition": "새벽 관련 카드 3장 수집"
+},
+{
+"id": "moon_tracker",
+"name": "달빛 추적자",
+"rarity": "rare",
+"icon": "🌙",
+"description": "고요한 밤의 거리를 누비는 러너",
+"condition": "야간 러닝 카드 3장 수집"
+},
+{
+"id": "pathfinder",
+"name": "의지의 개척자",
+"rarity": "epic",
+"icon": "🧭",
+"description": "포기하지 않고 새로운 길을 만들어간다",
+"condition": "거리 카드 5장 수집"
+},
+{
+"id": "routine_master",
+"name": "루틴의 지배자",
+"rarity": "legendary",
+"icon": "👑",
+"description": "달리기를 삶의 일부로 만든 존재",
+"condition": "습관 카드 5장 수집"
+},
+{
+"id": "growing_runner",
+"name": "성장하는 러너",
+"rarity": "rare",
+"icon": "🌱",
+"description": "어제보다 나은 자신을 만들어간다",
+"condition": "성장 카드 3장 수집"
+},
+{
+"id": "record_breaker",
+"name": "기록 파괴자",
+"rarity": "epic",
+"icon": "⚡",
+"description": "자신의 한계를 계속 넘어선다",
+"condition": "PB 관련 카드 4장 수집"
+},
+{
+"id": "road_explorer",
+"name": "길의 개척자",
+"rarity": "rare",
+"icon": "🗺️",
+"description": "세상을 달리며 탐험하는 러너",
+"condition": "지역 카드 3장 수집"
+},
+{
+"id": "nomad_runner",
+"name": "노마드 러너",
+"rarity": "legendary",
+"icon": "🌎",
+"description": "국경을 넘어 달리는 여행자",
+"condition": "국가 카드 5장 수집"
+}
 ]
