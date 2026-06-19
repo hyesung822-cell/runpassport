@@ -4,45 +4,99 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RunPassport - Identity</title>
+
+<style>
+
+body{
+    background:#0B1023;
+    color:white;
+    font-family:sans-serif;
+    max-width:430px;
+    margin:auto;
+    padding:20px;
+}
+
+h1{
+    margin-bottom:20px;
+}
+
+.identity{
+    background:#1c2550;
+    border-radius:16px;
+    padding:16px;
+    margin-bottom:12px;
+}
+
+.rarity{
+    font-size:12px;
+    opacity:0.7;
+    margin-top:6px;
+}
+
+a{
+    color:#d4a63d;
+}
+
+</style>
+
 </head>
 
 <body>
 
 <h1>Identity</h1>
 
-<p>해금된 정체성 목록</p>
-
-<ul id="identity-list"></ul>
+<div id="identity-list">
+Loading...
+</div>
 
 <br>
 
-<a href="index.html">Home으로 이동</a>
+<a href="Home.html">Home</a>
 
 <script>
 
-fetch('./data/identities.json')
-  .then(response => response.json())
-  .then(identities => {
+Promise.all([
+    fetch('./data/identities.json').then(r => r.json()),
+    fetch('./data/user.json').then(r => r.json())
+])
 
-    const list =
-      document.getElementById('identity-list');
+.then(([identities, user]) => {
 
-    identities.forEach(identity => {
+    const unlocked = user.unlockedIdentities;
 
-      const item =
-        document.createElement('li');
+    const unlockedIdentities =
+        identities.filter(identity =>
+            unlocked.includes(identity.id)
+        );
 
-      item.textContent =
-        identity.name +
-        " (" +
-        identity.rarity +
-        ")";
+    const container =
+        document.getElementById('identity-list');
 
-      list.appendChild(item);
+    container.innerHTML = '';
+
+    unlockedIdentities.forEach(identity => {
+
+        container.innerHTML += `
+            <div class="identity">
+                <strong>${identity.name}</strong>
+                <div class="rarity">
+                    ${identity.rarity}
+                </div>
+            </div>
+        `;
 
     });
 
-  });
+})
+
+.catch(error => {
+
+    console.error(error);
+
+    document.getElementById('identity-list').innerHTML =
+        '데이터 로딩 실패';
+
+});
 
 </script>
 
