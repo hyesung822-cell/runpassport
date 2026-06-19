@@ -23,9 +23,20 @@ h1{
 
 .card{
     background:#1c2550;
-    border-radius:16px;
-    padding:16px;
-    margin-bottom:12px;
+    border-radius:20px;
+    padding:20px;
+    margin-bottom:16px;
+    text-align:center;
+    transition:0.2s;
+}
+
+.card:hover{
+    transform:translateY(-2px);
+}
+
+.card-icon{
+    font-size:40px;
+    margin-bottom:10px;
 }
 
 .card-name{
@@ -34,9 +45,25 @@ h1{
 }
 
 .rarity{
-    margin-top:8px;
+    margin-top:10px;
     font-size:12px;
-    opacity:0.7;
+    font-weight:bold;
+}
+
+.common{
+    color:#C9CDD4;
+}
+
+.rare{
+    color:#4DA3FF;
+}
+
+.epic{
+    color:#B06CFF;
+}
+
+.legendary{
+    color:#F5C451;
 }
 
 a{
@@ -62,9 +89,21 @@ Loading...
 
 <br>
 
-<a href="Home.html">Home</a>
+<a href="Home.html">← Home</a>
 
 <script>
+
+function getIcon(category){
+
+    if(category === "time") return "⏰";
+    if(category === "habit") return "🔥";
+    if(category === "distance") return "🏃";
+    if(category === "passport") return "🌍";
+    if(category === "growth") return "📈";
+
+    return "🏅";
+
+}
 
 Promise.all([
     fetch('./data/cards.json').then(r => r.json()),
@@ -89,17 +128,23 @@ Promise.all([
 
         container.innerHTML += `
         <a class="card-link" href="Card.html?id=${card.id}">
+
             <div class="card">
+
+                <div class="card-icon">
+                    ${getIcon(card.category)}
+                </div>
 
                 <div class="card-name">
                     ${card.name}
                 </div>
 
-                <div class="rarity">
-                    ${card.rarity}
+                <div class="rarity ${card.rarity}">
+                    ${card.rarity.toUpperCase()}
                 </div>
 
             </div>
+
         </a>
         `;
 
