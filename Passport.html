@@ -5,64 +5,87 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RunPassport - Passport</title>
+
+<style>
+body{
+    background:#0B1023;
+    color:white;
+    font-family:sans-serif;
+    max-width:430px;
+    margin:auto;
+    padding:20px;
+}
+
+h1{
+    margin-bottom:20px;
+}
+
+.card{
+    background:#1c2550;
+    border-radius:16px;
+    padding:16px;
+    margin-bottom:12px;
+}
+
+.rarity{
+    font-size:12px;
+    opacity:0.7;
+    margin-top:6px;
+}
+
+a{
+    color:#d4a63d;
+}
+</style>
+
 </head>
 
 <body>
 
 <h1>Passport</h1>
 
-<p>획득한 카드 목록</p>
-
-<ul id="card-list">
-</ul>
+<div id="card-list">
+Loading...
+</div>
 
 <br>
 
-<a href="index.html">Home으로 이동</a>
+<a href="Home.html">Home</a>
 
 <script>
 
-fetch('./data/cards.json')
-  .then(response => {
+Promise.all([
+    fetch('./data/cards.json').then(r => r.json()),
+    fetch('./data/user.json').then(r => r.json())
+])
 
-    if (!response.ok) {
-      throw new Error("cards.json 불러오기 실패");
-    }
+.then(([cards,user]) => {
 
-    return response.json();
+    const earned = user.earnedCards;
 
-  })
+    const earnedCards = cards.filter(card =>
+        earned.includes(card.id)
+    );
 
-  .then(cards => {
+    const container =
+        document.getElementById('card-list');
 
-    const list = document.getElementById('card-list');
+    container.innerHTML = '';
 
-    cards.forEach(card => {
+    earnedCards.forEach(card => {
 
-      const item = document.createElement('li');
-
-      item.textContent =
-        card.name +
-        " (" +
-        card.rarity +
-        ")";
-
-      list.appendChild(item);
+        container.innerHTML += `
+            <div class="card">
+                <strong>${card.name}</strong>
+                <div class="rarity">
+                    ${card.rarity}
+                </div>
+            </div>
+        `;
 
     });
 
-    console.log("카드 로딩 성공:", cards.length);
-
-  })
-
-  .catch(error => {
-
-    console.error(error);
-
-    document.getElementById('card-list').innerHTML =
-      "<li>카드를 불러오지 못했습니다.</li>";
-
-  });
+});
 
 </script>
 
