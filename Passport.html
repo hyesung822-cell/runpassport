@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -7,6 +6,7 @@
 <title>RunPassport - Passport</title>
 
 <style>
+
 body{
     background:#0B1023;
     color:white;
@@ -27,15 +27,21 @@ h1{
     margin-bottom:12px;
 }
 
+.card-name{
+    font-size:18px;
+    font-weight:bold;
+}
+
 .rarity{
+    margin-top:8px;
     font-size:12px;
     opacity:0.7;
-    margin-top:6px;
 }
 
 a{
     color:#d4a63d;
 }
+
 </style>
 
 </head>
@@ -55,28 +61,32 @@ Loading...
 <script>
 
 Promise.all([
-fetch('./data/cards.json').then(r=>r.json()),
-fetch('./data/user.json').then(r=>r.json())
+    fetch('./data/cards.json').then(r => r.json()),
+    fetch('./data/user.json').then(r => r.json())
 ])
 
-.then(([cards,user])=>{
+.then(([cards,user]) => {
 
-    const earned = user.earnedCards;
+    const earnedCards = user.earnedCards;
 
-    const earnedCards = cards.filter(card =>
-        earned.includes(card.id)
-    );
+    const unlockedCards =
+        cards.filter(card =>
+            earnedCards.includes(card.id)
+        );
 
     const container =
         document.getElementById('card-list');
 
     container.innerHTML = '';
 
-    earnedCards.forEach(card => {
+    unlockedCards.forEach(card => {
 
         container.innerHTML += `
             <div class="card">
-                <strong>${card.name}</strong>
+                <div class="card-name">
+                    ${card.name}
+                </div>
+
                 <div class="rarity">
                     ${card.rarity}
                 </div>
@@ -86,3 +96,17 @@ fetch('./data/user.json').then(r=>r.json())
     });
 
 })
+
+.catch(error => {
+
+    console.error(error);
+
+    document.getElementById('card-list').innerHTML =
+        '데이터 로딩 실패';
+
+});
+
+</script>
+
+</body>
+</html>

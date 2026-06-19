@@ -16,10 +16,6 @@ body{
     padding:20px;
 }
 
-h1{
-    margin-bottom:20px;
-}
-
 .identity{
     background:#1c2550;
     border-radius:16px;
@@ -27,10 +23,15 @@ h1{
     margin-bottom:12px;
 }
 
+.identity-name{
+    font-size:20px;
+    font-weight:bold;
+}
+
 .rarity{
+    margin-top:8px;
     font-size:12px;
     opacity:0.7;
-    margin-top:6px;
 }
 
 a{
@@ -38,7 +39,6 @@ a{
 }
 
 </style>
-
 </head>
 
 <body>
@@ -60,9 +60,10 @@ Promise.all([
     fetch('./data/user.json').then(r => r.json())
 ])
 
-.then(([identities, user]) => {
+.then(([identities,user]) => {
 
-    const unlocked = user.unlockedIdentities;
+    const unlocked =
+        user.unlockedIdentities;
 
     const unlockedIdentities =
         identities.filter(identity =>
@@ -78,10 +79,15 @@ Promise.all([
 
         container.innerHTML += `
             <div class="identity">
-                <strong>${identity.name}</strong>
+
+                <div class="identity-name">
+                    ${identity.name}
+                </div>
+
                 <div class="rarity">
                     ${identity.rarity}
                 </div>
+
             </div>
         `;
 
