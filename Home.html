@@ -1,355 +1,260 @@
 <!DOCTYPE html>
-
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>RunPassport</title>
 
 <style>
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-}
-
 body{
+    margin:0;
+    padding:20px;
     background:#0B1023;
     color:white;
+    font-family:sans-serif;
     max-width:430px;
-    margin:0 auto;
-    min-height:100vh;
-    padding-bottom:100px;
+    margin:auto;
 }
 
-.container{
-    padding:24px;
-}
-
-.greeting{
+.header{
     margin-top:20px;
 }
 
-.greeting p{
-    color:#9aa3b2;
-    margin-bottom:8px;
+.greeting{
+    color:#B8C0FF;
+    font-size:14px;
 }
 
-.greeting h1{
-    font-size:34px;
-    margin-bottom:20px;
+.name{
+    font-size:42px;
+    font-weight:bold;
+    margin-top:10px;
 }
 
 .badges{
     display:flex;
-    gap:12px;
-    flex-wrap:wrap;
+    gap:10px;
+    margin-top:20px;
 }
 
 .badge{
-    border:1px solid #3949ab;
-    color:#b8c0ff;
+    border:1px solid #4D5FFF;
+    border-radius:20px;
     padding:8px 14px;
-    border-radius:999px;
     font-size:14px;
 }
 
 .identity-card{
-    margin-top:28px;
-    background:linear-gradient(135deg,#1b2350,#25306d);
+    margin-top:30px;
+    background:#1C2550;
     border-radius:24px;
-    padding:24px;
-    position:relative;
-}
-
-.identity-label{
-    font-size:12px;
-    letter-spacing:1px;
-    color:#aeb7ff;
-    margin-bottom:16px;
-}
-
-.legendary{
-    position:absolute;
-    right:20px;
-    top:20px;
-    background:#d4a63d;
-    color:white;
-    font-size:12px;
-    padding:6px 12px;
-    border-radius:999px;
+    padding:20px;
 }
 
 .identity-title{
-    font-size:34px;
-    font-weight:700;
-    line-height:1.1;
-    margin-bottom:12px;
+    font-size:30px;
+    font-weight:bold;
+    margin-top:10px;
 }
 
 .identity-sub{
-    color:#c7cffd;
-    font-style:italic;
-    margin-bottom:28px;
-}
-
-.progress-header{
-    display:flex;
-    justify-content:space-between;
-    margin-bottom:8px;
-    font-size:14px;
+    color:#C6CCFF;
+    margin-top:10px;
 }
 
 .progress{
-    width:100%;
+    margin-top:20px;
+}
+
+.progress-bar{
     height:10px;
-    background:#394065;
-    border-radius:999px;
+    background:#303A73;
+    border-radius:20px;
     overflow:hidden;
 }
 
 .progress-fill{
     width:84%;
     height:100%;
-    background:#d4a63d;
+    background:#D4A63D;
 }
 
-.section{
-    margin-top:36px;
-}
-
-.section h2{
-    margin-bottom:18px;
-}
-
-.cards{
-    display:flex;
-    gap:14px;
-    overflow-x:auto;
-    padding-bottom:8px;
-}
-
-.card{
-    min-width:140px;
-    border-radius:20px;
-    padding:18px;
-    color:white;
-}
-
-.rare{
-    background:#4560c7;
-}
-
-.epic{
-    background:#7b3fd1;
-}
-
-.legend{
-    background:#c89a29;
-}
-
-.card-rarity{
-    font-size:11px;
-    opacity:0.9;
-    margin-bottom:40px;
-}
-
-.card-title{
-    font-size:22px;
+.section-title{
+    margin-top:40px;
+    margin-bottom:15px;
+    font-size:28px;
     font-weight:bold;
-    margin-bottom:10px;
 }
 
-.card-sub{
-    font-size:14px;
+.stats-card{
+    background:#1C2550;
+    border-radius:20px;
+    padding:20px;
+    margin-bottom:15px;
 }
 
-.progress-row{
-    margin-bottom:18px;
+.stats-value{
+    font-size:24px;
+    font-weight:bold;
 }
 
-.progress-row-top{
+.nav{
+    margin-top:40px;
     display:flex;
     justify-content:space-between;
-    margin-bottom:8px;
 }
 
-.bar{
-    height:8px;
-    background:#2d3352;
-    border-radius:999px;
-    overflow:hidden;
-}
-
-.bar-fill{
-    height:100%;
-}
-
-.endurance{
-    width:78%;
-    background:#5468d4;
-}
-
-.consistency{
-    width:62%;
-    background:#7b3fd1;
-}
-
-.speed{
-    width:44%;
-    background:#c89a29;
-}
-
-.bottom-nav{
-    position:fixed;
-    bottom:0;
-    left:0;
-    right:0;
-    max-width:430px;
-    margin:auto;
-    background:#141a33;
-    display:flex;
-    justify-content:space-around;
-    padding:18px 0;
-    border-top:1px solid #2d3352;
-}
-
-.bottom-nav a{
-    color:white;
+.nav a{
+    color:#D4A63D;
     text-decoration:none;
-    font-size:14px;
-}
-
-.active{
-    color:#d4a63d !important;
 }
 
 </style>
-
 </head>
 
 <body>
 
-<div class="container">
+<div class="header">
 
 <div class="greeting">
-<p>Good morning</p>
-<h1>Alex Rivera</h1>
+Good morning
+</div>
+
+<div class="name" id="identity-name">
+Loading...
+</div>
 
 <div class="badges">
-<div class="badge">LEVEL 24</div>
-<div class="badge">94 runs · 2,847 km</div>
+
+<div class="badge" id="level">
+LEVEL
 </div>
+
+<div class="badge" id="stats">
+RUNS
+</div>
+
+</div>
+
 </div>
 
 <div class="identity-card">
 
-<div class="identity-label">MAIN IDENTITY</div>
+<div>
+MAIN IDENTITY
+</div>
 
-<div class="legendary">LEGENDARY</div>
-
-<div class="identity-title">
-The Endurance Seeker
+<div class="identity-title" id="main-identity">
+Loading...
 </div>
 
 <div class="identity-sub">
-"Distance doesn't intimidate you — it defines you."
-</div>
-
-<div class="progress-header">
-<span>Next card — Century Rider</span>
-<span>847 / 1000 km</span>
+Distance doesn't intimidate you — it defines you.
 </div>
 
 <div class="progress">
+
+<div style="display:flex;justify-content:space-between;margin-bottom:10px;">
+<div>Next card</div>
+<div id="distance-progress">0 km</div>
+</div>
+
+<div class="progress-bar">
 <div class="progress-fill"></div>
 </div>
 
 </div>
 
-<div class="section">
-
-<h2>Recently Unlocked</h2>
-
-<div class="cards">
-
-<div class="card rare">
-<div class="card-rarity">RARE</div>
-<div class="card-title">🌙</div>
-<div class="card-sub">Night Owl<br>23 runs</div>
 </div>
 
-<div class="card epic">
-<div class="card-rarity">EPIC</div>
-<div class="card-title">⚡</div>
-<div class="card-sub">Iron Streak<br>14 days</div>
+<div class="section-title">
+Collection
 </div>
 
-<div class="card legend">
-<div class="card-rarity">LEGENDARY</div>
-<div class="card-title">🌅</div>
-<div class="card-sub">Dawn Runner<br>5 runs</div>
+<div class="stats-card">
+
+<div class="stats-value" id="card-count">
+0
 </div>
+
+Cards
 
 </div>
 
+<div class="stats-card">
+
+<div class="stats-value" id="identity-count">
+0
 </div>
 
-<div class="section">
-
-<h2>Identity Progress</h2>
-
-<div class="progress-row">
-
-<div class="progress-row-top">
-<span>Endurance</span>
-<span>78%</span>
-</div>
-
-<div class="bar">
-<div class="bar-fill endurance"></div>
-</div>
+Identities
 
 </div>
 
-<div class="progress-row">
+<div class="nav">
 
-<div class="progress-row-top">
-<span>Consistency</span>
-<span>62%</span>
-</div>
+<a href="Passport.html">
+Passport
+</a>
 
-<div class="bar">
-<div class="bar-fill consistency"></div>
-</div>
-
-</div>
-
-<div class="progress-row">
-
-<div class="progress-row-top">
-<span>Speed</span>
-<span>44%</span>
-</div>
-
-<div class="bar">
-<div class="bar-fill speed"></div>
-</div>
+<a href="Identity.html">
+Identity
+</a>
 
 </div>
 
-</div>
+<script>
 
-</div>
+Promise.all([
+fetch('./data/user.json').then(r=>r.json()),
+fetch('./data/cards.json').then(r=>r.json()),
+fetch('./data/identities.json').then(r=>r.json())
+])
 
-<div class="bottom-nav">
-<a href="Home.html" class="active">Home</a>
-<a href="Passport.html">Passport</a>
-<a href="Identity.html">Identity</a>
-<a href="#">Profile</a>
-</div>
+.then(([user,cards,identities])=>{
+
+document.getElementById('level').innerText =
+'LEVEL ' + user.level;
+
+document.getElementById('stats').innerText =
+user.runs + ' runs · ' +
+user.distance + ' km';
+
+document.getElementById('distance-progress').innerText =
+user.distance + ' km';
+
+document.getElementById('card-count').innerText =
+user.earnedCards.length;
+
+document.getElementById('identity-count').innerText =
+user.unlockedIdentities.length;
+
+const identity =
+identities.find(
+i => i.id === user.mainIdentity
+);
+
+if(identity){
+
+document.getElementById('identity-name').innerText =
+identity.name;
+
+document.getElementById('main-identity').innerText =
+identity.name;
+
+}
+
+})
+
+.catch(error=>{
+
+console.error(error);
+
+});
+
+</script>
 
 </body>
 </html>
