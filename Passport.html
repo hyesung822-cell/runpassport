@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -42,6 +43,11 @@ a{
     color:#d4a63d;
 }
 
+.card-link{
+    text-decoration:none;
+    color:white;
+}
+
 </style>
 
 </head>
@@ -65,7 +71,7 @@ Promise.all([
     fetch('./data/user.json').then(r => r.json())
 ])
 
-.then(([cards,user]) => {
+.then(([cards, user]) => {
 
     const earnedCards = user.earnedCards;
 
@@ -82,7 +88,9 @@ Promise.all([
     unlockedCards.forEach(card => {
 
         container.innerHTML += `
+        <a class="card-link" href="Card.html?id=${card.id}">
             <div class="card">
+
                 <div class="card-name">
                     ${card.name}
                 </div>
@@ -90,7 +98,9 @@ Promise.all([
                 <div class="rarity">
                     ${card.rarity}
                 </div>
+
             </div>
+        </a>
         `;
 
     });
