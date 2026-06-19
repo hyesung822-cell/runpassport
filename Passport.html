@@ -8,71 +8,106 @@
 
 <style>
 
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+
 body{
-    background:#0B1023;
-    color:white;
-    font-family:sans-serif;
-    max-width:430px;
-    margin:auto;
-    padding:20px;
+background:#0B1023;
+color:white;
+max-width:430px;
+margin:auto;
+padding:24px;
+padding-bottom:100px;
 }
 
 h1{
-    margin-bottom:20px;
-}
-
-.card{
-    background:#1c2550;
-    border-radius:20px;
-    padding:20px;
-    margin-bottom:16px;
-    text-align:center;
-    transition:0.2s;
-}
-
-.card:hover{
-    transform:translateY(-2px);
-}
-
-.card-icon{
-    font-size:40px;
-    margin-bottom:10px;
-}
-
-.card-name{
-    font-size:18px;
-    font-weight:bold;
-}
-
-.rarity{
-    margin-top:10px;
-    font-size:12px;
-    font-weight:bold;
-}
-
-.common{
-    color:#C9CDD4;
-}
-
-.rare{
-    color:#4DA3FF;
-}
-
-.epic{
-    color:#B06CFF;
-}
-
-.legendary{
-    color:#F5C451;
-}
-
-a{
-    color:#d4a63d;
+margin-bottom:24px;
+font-size:32px;
 }
 
 .card-link{
-    text-decoration:none;
-    color:white;
+text-decoration:none;
+color:white;
+}
+
+.card{
+background:#1C2550;
+border-radius:24px;
+padding:20px;
+margin-bottom:16px;
+text-align:center;
+transition:0.2s;
+}
+
+.card:hover{
+transform:translateY(-2px);
+}
+
+.card-icon{
+font-size:48px;
+margin-bottom:10px;
+}
+
+.card-name{
+font-size:20px;
+font-weight:700;
+margin-bottom:8px;
+}
+
+.rarity{
+font-size:12px;
+font-weight:700;
+letter-spacing:1px;
+}
+
+.common{
+color:#C9CDD4;
+}
+
+.rare{
+color:#4DA3FF;
+}
+
+.epic{
+color:#B06CFF;
+}
+
+.legendary{
+color:#F5C451;
+}
+
+.card-category{
+margin-top:10px;
+font-size:12px;
+opacity:0.7;
+}
+
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+max-width:430px;
+margin:auto;
+background:#141A33;
+display:flex;
+justify-content:space-around;
+padding:18px 0;
+border-top:1px solid #252D52;
+}
+
+.bottom-nav a{
+color:white;
+text-decoration:none;
+font-size:14px;
+}
+
+.active{
+color:#D4A63D !important;
 }
 
 </style>
@@ -87,77 +122,98 @@ a{
 Loading...
 </div>
 
-<br>
+<div class="bottom-nav">
 
-<a href="Home.html">← Home</a>
+<a href="Home.html">
+Home
+</a>
+
+<a class="active" href="Passport.html">
+Passport
+</a>
+
+<a href="Identity.html">
+Identity
+</a>
+
+<a href="Profile.html">
+Profile
+</a>
+
+</div>
 
 <script>
 
 function getIcon(category){
 
-    if(category === "time") return "⏰";
-    if(category === "habit") return "🔥";
-    if(category === "distance") return "🏃";
-    if(category === "passport") return "🌍";
-    if(category === "growth") return "📈";
+if(category==="time") return "⏰";
+if(category==="habit") return "🔥";
+if(category==="distance") return "🏃";
+if(category==="passport") return "🌍";
+if(category==="growth") return "📈";
 
-    return "🏅";
+return "🏅";
 
 }
 
 Promise.all([
-    fetch('./data/cards.json').then(r => r.json()),
-    fetch('./data/user.json').then(r => r.json())
+fetch('./data/cards.json').then(r=>r.json()),
+fetch('./data/user.json').then(r=>r.json())
 ])
 
-.then(([cards, user]) => {
+.then(([cards,user])=>{
 
-    const earnedCards = user.earnedCards;
+const unlockedCards =
+cards.filter(card =>
+user.earnedCards.includes(card.id)
+);
 
-    const unlockedCards =
-        cards.filter(card =>
-            earnedCards.includes(card.id)
-        );
+const container =
+document.getElementById('card-list');
 
-    const container =
-        document.getElementById('card-list');
+container.innerHTML = '';
 
-    container.innerHTML = '';
+unlockedCards.forEach(card => {
 
-    unlockedCards.forEach(card => {
+container.innerHTML += `
 
-        container.innerHTML += `
-        <a class="card-link" href="Card.html?id=${card.id}">
+<a class="card-link"
+href="Card.html?id=${card.id}">
 
-            <div class="card">
+<div class="card">
 
-                <div class="card-icon">
-                    ${getIcon(card.category)}
-                </div>
+<div class="card-icon">
+${getIcon(card.category)}
+</div>
 
-                <div class="card-name">
-                    ${card.name}
-                </div>
+<div class="card-name">
+${card.name}
+</div>
 
-                <div class="rarity ${card.rarity}">
-                    ${card.rarity.toUpperCase()}
-                </div>
+<div class="rarity ${card.rarity}">
+${card.rarity.toUpperCase()}
+</div>
 
-            </div>
+<div class="card-category">
+${card.category.toUpperCase()}
+</div>
 
-        </a>
-        `;
+</div>
 
-    });
+</a>
+
+`;
+
+});
 
 })
 
-.catch(error => {
+.catch(error=>{
 
-    console.error(error);
+console.error(error);
 
-    document.getElementById('card-list').innerHTML =
-        '데이터 로딩 실패';
+document.getElementById('card-list')
+.innerHTML = '데이터 로딩 실패';
 
 });
 

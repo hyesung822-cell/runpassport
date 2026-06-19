@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -7,38 +8,111 @@
 
 <style>
 
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+
 body{
-    background:#0B1023;
-    color:white;
-    font-family:sans-serif;
-    max-width:430px;
-    margin:auto;
-    padding:20px;
+background:#0B1023;
+color:white;
+max-width:430px;
+margin:auto;
+padding:24px;
+padding-bottom:100px;
+}
+
+h1{
+margin-bottom:24px;
+font-size:32px;
+}
+
+.identity-link{
+text-decoration:none;
+color:white;
 }
 
 .identity{
-    background:#1c2550;
-    border-radius:16px;
-    padding:16px;
-    margin-bottom:12px;
+background:#1C2550;
+border-radius:24px;
+padding:24px;
+margin-bottom:16px;
+text-align:center;
 }
 
-.identity-name{
-    font-size:20px;
-    font-weight:bold;
+.icon{
+font-size:56px;
+margin-bottom:12px;
+}
+
+.name{
+font-size:24px;
+font-weight:700;
+margin-bottom:10px;
 }
 
 .rarity{
-    margin-top:8px;
-    font-size:12px;
-    opacity:0.7;
+font-size:13px;
+font-weight:700;
+letter-spacing:1px;
+margin-bottom:12px;
 }
 
-a{
-    color:#d4a63d;
+.common{
+color:#C9CDD4;
+}
+
+.rare{
+color:#4DA3FF;
+}
+
+.epic{
+color:#B06CFF;
+}
+
+.legendary{
+color:#F5C451;
+}
+
+.description{
+line-height:1.6;
+opacity:0.9;
+margin-bottom:16px;
+}
+
+.condition{
+font-size:13px;
+color:#D4A63D;
+}
+
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+max-width:430px;
+margin:auto;
+background:#141A33;
+display:flex;
+justify-content:space-around;
+padding:18px 0;
+border-top:1px solid #252D52;
+}
+
+.bottom-nav a{
+color:white;
+text-decoration:none;
+font-size:14px;
+}
+
+.active{
+color:#D4A63D !important;
 }
 
 </style>
+
 </head>
 
 <body>
@@ -49,58 +123,91 @@ a{
 Loading...
 </div>
 
-<br>
+<div class="bottom-nav">
 
-<a href="Home.html">Home</a>
+<a href="Home.html">
+Home
+</a>
+
+<a href="Passport.html">
+Passport
+</a>
+
+<a class="active" href="Identity.html">
+Identity
+</a>
+
+<a href="Profile.html">
+Profile
+</a>
+
+</div>
 
 <script>
 
 Promise.all([
-    fetch('./data/identities.json').then(r => r.json()),
-    fetch('./data/user.json').then(r => r.json())
+fetch('./data/identities.json').then(r=>r.json()),
+fetch('./data/user.json').then(r=>r.json())
 ])
 
-.then(([identities,user]) => {
+.then(([identities,user])=>{
 
-    const unlocked =
-        user.unlockedIdentities;
+const unlockedIdentities =
+identities.filter(identity =>
+user.unlockedIdentities.includes(identity.id)
+);
 
-    const unlockedIdentities =
-        identities.filter(identity =>
-            unlocked.includes(identity.id)
-        );
+const container =
+document.getElementById('identity-list');
 
-    const container =
-        document.getElementById('identity-list');
+container.innerHTML = '';
 
-    container.innerHTML = '';
+unlockedIdentities.forEach(identity => {
 
-    unlockedIdentities.forEach(identity => {
+container.innerHTML += `
 
-        container.innerHTML += `
-            <div class="identity">
+<a class="identity-link"
+href="IdentityDetail.html?id=${identity.id}">
 
-                <div class="identity-name">
-                    ${identity.name}
-                </div>
+<div class="identity">
 
-                <div class="rarity">
-                    ${identity.rarity}
-                </div>
+<div class="icon">
+${identity.icon}
+</div>
 
-            </div>
-        `;
+<div class="name">
+${identity.name}
+</div>
 
-    });
+<div class="rarity ${identity.rarity}">
+${identity.rarity.toUpperCase()}
+</div>
+
+<div class="description">
+${identity.description}
+</div>
+
+<div class="condition">
+${identity.condition}
+</div>
+
+</div>
+
+</a>
+
+`;
+
+});
 
 })
 
-.catch(error => {
+.catch(error=>{
 
-    console.error(error);
+console.error(error);
 
-    document.getElementById('identity-list').innerHTML =
-        '데이터 로딩 실패';
+document.getElementById('identity-list')
+.innerHTML =
+'데이터 로딩 실패';
 
 });
 

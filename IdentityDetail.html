@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RunPassport - Card</title>
+<title>RunPassport - Identity Detail</title>
 
 <style>
 
@@ -24,7 +24,7 @@ padding:24px;
 padding-bottom:100px;
 }
 
-.card{
+.identity-card{
 background:#1C2550;
 border-radius:28px;
 padding:28px;
@@ -45,8 +45,7 @@ margin-bottom:10px;
 .rarity{
 font-size:14px;
 font-weight:700;
-letter-spacing:1px;
-margin-bottom:24px;
+margin-bottom:20px;
 }
 
 .common{
@@ -79,7 +78,18 @@ margin-bottom:8px;
 
 .value{
 line-height:1.6;
-opacity:0.95;
+}
+
+.main-button{
+width:100%;
+margin-top:24px;
+padding:16px;
+border:none;
+border-radius:16px;
+background:#D4A63D;
+color:#0B1023;
+font-weight:700;
+font-size:15px;
 }
 
 .back{
@@ -119,17 +129,17 @@ color:#D4A63D !important;
 
 <body>
 
-<div class="card">
+<div class="identity-card">
 
-<div id="card-icon" class="icon">
-🏅
+<div id="identity-icon" class="icon">
+🌅
 </div>
 
-<div id="card-name" class="name">
+<div id="identity-name" class="name">
 Loading...
 </div>
 
-<div id="card-rarity" class="rarity">
+<div id="identity-rarity" class="rarity">
 Loading...
 </div>
 
@@ -139,7 +149,7 @@ Loading...
 설명
 </div>
 
-<div id="card-description" class="value">
+<div id="identity-description" class="value">
 Loading...
 </div>
 
@@ -151,28 +161,20 @@ Loading...
 획득 조건
 </div>
 
-<div id="card-condition" class="value">
+<div id="identity-condition" class="value">
 Loading...
 </div>
 
 </div>
 
-<div class="section">
-
-<div class="label">
-카테고리
-</div>
-
-<div id="card-category" class="value">
-Loading...
-</div>
+<button class="main-button">
+대표 정체성
+</button>
 
 </div>
 
-</div>
-
-<a class="back" href="Passport.html">
-← Passport로 돌아가기
+<a class="back" href="Identity.html">
+← Identity로 돌아가기
 </a>
 
 <div class="bottom-nav">
@@ -181,11 +183,11 @@ Loading...
 Home
 </a>
 
-<a class="active" href="Passport.html">
+<a href="Passport.html">
 Passport
 </a>
 
-<a href="Identity.html">
+<a class="active" href="Identity.html">
 Identity
 </a>
 
@@ -197,60 +199,46 @@ Profile
 
 <script>
 
-function getIcon(category){
-
-if(category==="time") return "⏰";
-if(category==="habit") return "🔥";
-if(category==="distance") return "🏃";
-if(category==="passport") return "🌍";
-if(category==="growth") return "📈";
-
-return "🏅";
-
-}
-
 const params =
 new URLSearchParams(window.location.search);
 
-const cardId =
+const identityId =
 params.get("id");
 
-fetch('./data/cards.json')
+fetch('./data/identities.json')
 .then(r=>r.json())
-.then(cards=>{
+.then(identities=>{
 
-const card =
-cards.find(c=>c.id===cardId);
+const identity =
+identities.find(
+i => i.id === identityId
+);
 
-if(!card) return;
+if(!identity) return;
 
-document.getElementById('card-icon')
+document.getElementById('identity-icon')
 .innerText =
-getIcon(card.category);
+identity.icon;
 
-document.getElementById('card-name')
+document.getElementById('identity-name')
 .innerText =
-card.name;
+identity.name;
 
 const rarity =
-document.getElementById('card-rarity');
+document.getElementById('identity-rarity');
 
 rarity.innerText =
-card.rarity.toUpperCase();
+identity.rarity.toUpperCase();
 
-rarity.classList.add(card.rarity);
+rarity.classList.add(identity.rarity);
 
-document.getElementById('card-description')
+document.getElementById('identity-description')
 .innerText =
-card.description;
+identity.description;
 
-document.getElementById('card-condition')
+document.getElementById('identity-condition')
 .innerText =
-card.condition;
-
-document.getElementById('card-category')
-.innerText =
-card.category.toUpperCase();
+identity.condition;
 
 });
 

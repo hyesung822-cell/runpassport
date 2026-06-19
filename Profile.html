@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RunPassport</title>
+<title>RunPassport - Profile</title>
 
 <style>
 
@@ -24,67 +24,39 @@ padding:24px;
 padding-bottom:100px;
 }
 
-.greeting{
-color:#B8C0FF;
-font-size:14px;
-margin-bottom:8px;
-}
-
-.user-name{
-font-size:36px;
-font-weight:700;
+.profile-card{
+background:#1C2550;
+border-radius:28px;
+padding:28px;
+text-align:center;
 margin-bottom:20px;
 }
 
-.badges{
-display:flex;
-gap:10px;
-flex-wrap:wrap;
-margin-bottom:30px;
+.avatar{
+font-size:72px;
+margin-bottom:16px;
 }
 
-.badge{
-padding:8px 14px;
-border:1px solid #4D5FFF;
-border-radius:999px;
-font-size:14px;
-color:#D8DEFF;
-}
-
-.identity-card{
-background:linear-gradient(135deg,#1C2550,#2D3E88);
-border-radius:24px;
-padding:24px;
-margin-bottom:30px;
-}
-
-.identity-label{
-font-size:12px;
-letter-spacing:1px;
-opacity:0.8;
-margin-bottom:10px;
-}
-
-.identity-icon{
-font-size:48px;
-margin-bottom:10px;
-}
-
-.identity-name{
-font-size:30px;
+.name{
+font-size:32px;
 font-weight:700;
 margin-bottom:10px;
 }
 
-.identity-desc{
-color:#D5DCFF;
-line-height:1.5;
+.level{
+color:#D4A63D;
+font-weight:700;
+margin-bottom:10px;
+}
+
+.identity{
+opacity:0.9;
 }
 
 .section-title{
 font-size:24px;
 font-weight:700;
-margin-bottom:16px;
+margin:20px 0 12px;
 }
 
 .stat-card{
@@ -134,53 +106,57 @@ color:#D4A63D !important;
 
 <body>
 
-<div class="greeting">
-Good morning
+<div class="profile-card">
+
+<div class="avatar">
+🏃
 </div>
 
-<div id="user-name" class="user-name">
+<div id="user-name" class="name">
 Loading...
 </div>
 
-<div class="badges">
-
-<div id="level" class="badge">
-LEVEL
+<div id="user-level" class="level">
+LEVEL 0
 </div>
 
-<div id="stats" class="badge">
-STATS
-</div>
-
-</div>
-
-<div class="identity-card">
-
-<div class="identity-label">
-MAIN IDENTITY
-</div>
-
-<div id="identity-icon" class="identity-icon">
-🌅
-</div>
-
-<div id="identity-name" class="identity-name">
-Loading...
-</div>
-
-<div id="identity-description" class="identity-desc">
+<div id="main-identity" class="identity">
 Loading...
 </div>
 
 </div>
 
 <div class="section-title">
-Collection
+Running Stats
 </div>
 
 <div class="stat-card">
 
-<div id="card-count" class="stat-value">
+<div id="total-runs" class="stat-value">
+0
+</div>
+
+<div class="stat-label">
+Total Runs
+</div>
+
+</div>
+
+<div class="stat-card">
+
+<div id="total-distance" class="stat-value">
+0
+</div>
+
+<div class="stat-label">
+Total Distance (km)
+</div>
+
+</div>
+
+<div class="stat-card">
+
+<div id="total-cards" class="stat-value">
 0
 </div>
 
@@ -192,7 +168,7 @@ Cards Collected
 
 <div class="stat-card">
 
-<div id="identity-count" class="stat-value">
+<div id="total-identities" class="stat-value">
 0
 </div>
 
@@ -204,7 +180,7 @@ Identities Unlocked
 
 <div class="bottom-nav">
 
-<a class="active" href="Home.html">
+<a href="Home.html">
 Home
 </a>
 
@@ -216,7 +192,7 @@ Passport
 Identity
 </a>
 
-<a href="Profile.html">
+<a class="active" href="Profile.html">
 Profile
 </a>
 
@@ -232,21 +208,26 @@ fetch('./data/identities.json').then(r=>r.json())
 .then(([user,identities])=>{
 
 document.getElementById('user-name')
-.innerText = user.name;
-
-document.getElementById('level')
-.innerText = 'LEVEL ' + user.level;
-
-document.getElementById('stats')
 .innerText =
-user.runs + ' runs · ' +
-user.distance + ' km';
+user.name;
 
-document.getElementById('card-count')
+document.getElementById('user-level')
+.innerText =
+'LEVEL ' + user.level;
+
+document.getElementById('total-runs')
+.innerText =
+user.runs;
+
+document.getElementById('total-distance')
+.innerText =
+user.distance;
+
+document.getElementById('total-cards')
 .innerText =
 user.earnedCards.length;
 
-document.getElementById('identity-count')
+document.getElementById('total-identities')
 .innerText =
 user.unlockedIdentities.length;
 
@@ -257,25 +238,11 @@ i => i.id === user.mainIdentity
 
 if(identity){
 
-document.getElementById('identity-name')
+document.getElementById('main-identity')
 .innerText =
-identity.name;
-
-document.getElementById('identity-description')
-.innerText =
-identity.description;
-
-document.getElementById('identity-icon')
-.innerText =
-identity.icon;
+identity.icon + ' ' + identity.name;
 
 }
-
-})
-
-.catch(error=>{
-
-console.error(error);
 
 });
 
