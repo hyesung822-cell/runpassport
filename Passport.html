@@ -61,24 +61,28 @@ fetch('./data/user.json').then(r=>r.json())
 
 .then(([cards,user])=>{
 
-console.log(cards);
-console.log(user);
+    const earned = user.earnedCards;
 
-document.getElementById('card-list').innerHTML =
-'카드 데이터 로드 성공';
+    const earnedCards = cards.filter(card =>
+        earned.includes(card.id)
+    );
+
+    const container =
+        document.getElementById('card-list');
+
+    container.innerHTML = '';
+
+    earnedCards.forEach(card => {
+
+        container.innerHTML += `
+            <div class="card">
+                <strong>${card.name}</strong>
+                <div class="rarity">
+                    ${card.rarity}
+                </div>
+            </div>
+        `;
+
+    });
 
 })
-
-.catch(error=>{
-
-console.error(error);
-
-document.getElementById('card-list').innerHTML =
-'에러 발생: ' + error;
-
-});
-
-</script>
-
-</body>
-</html>
