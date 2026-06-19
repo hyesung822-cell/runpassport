@@ -55,35 +55,26 @@ Loading...
 <script>
 
 Promise.all([
-    fetch('./data/cards.json').then(r => r.json()),
-    fetch('./data/user.json').then(r => r.json())
+fetch('./data/cards.json').then(r=>r.json()),
+fetch('./data/user.json').then(r=>r.json())
 ])
 
-.then(([cards,user]) => {
+.then(([cards,user])=>{
 
-    const earned = user.earnedCards;
+console.log(cards);
+console.log(user);
 
-    const earnedCards = cards.filter(card =>
-        earned.includes(card.id)
-    );
+document.getElementById('card-list').innerHTML =
+'카드 데이터 로드 성공';
 
-    const container =
-        document.getElementById('card-list');
+})
 
-    container.innerHTML = '';
+.catch(error=>{
 
-    earnedCards.forEach(card => {
+console.error(error);
 
-        container.innerHTML += `
-            <div class="card">
-                <strong>${card.name}</strong>
-                <div class="rarity">
-                    ${card.rarity}
-                </div>
-            </div>
-        `;
-
-    });
+document.getElementById('card-list').innerHTML =
+'에러 발생: ' + error;
 
 });
 
