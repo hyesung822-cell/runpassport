@@ -1,14 +1,19 @@
 {
+  "name": "Hyeseong",
+
   "earnedCards": [
     "time_001",
     "time_002",
     "habit_001",
     "distance_001"
   ],
+
   "unlockedIdentities": [
     "dawn_hunter"
   ],
+
   "mainIdentity": "dawn_hunter",
+
   "level": 24,
   "runs": 94,
   "distance": 2847
