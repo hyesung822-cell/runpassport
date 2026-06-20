@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RunPassport - Run</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+
+body{
+background:#0B1023;
+color:white;
+max-width:430px;
+margin:auto;
+padding:24px;
+padding-bottom:100px;
+text-align:center;
+}
+
+h1{
+margin-bottom:30px;
+}
+
+.metric{
+margin-bottom:30px;
+}
+
+.value{
+font-size:48px;
+font-weight:700;
+}
+
+.label{
+opacity:0.7;
+margin-top:6px;
+}
+
+button{
+width:220px;
+padding:18px;
+border:none;
+border-radius:18px;
+font-size:18px;
+font-weight:bold;
+background:#D4A63D;
+color:#0B1023;
+cursor:pointer;
+}
+
+#status{
+margin-top:30px;
+opacity:0.8;
+}
+
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+max-width:430px;
+margin:auto;
+background:#141A33;
+display:flex;
+justify-content:space-around;
+padding:18px 0;
+border-top:1px solid #252D52;
+}
+
+.bottom-nav a{
+color:white;
+text-decoration:none;
+font-size:14px;
+}
+
+.active{
+color:#D4A63D !important;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>RUN</h1>
+
+<div class="metric">
+<div id="distance" class="value">0.00</div>
+<div class="label">KM</div>
+</div>
+
+<div class="metric">
+<div id="timer" class="value">00:00:00</div>
+<div class="label">TIME</div>
+</div>
+
+<div class="metric">
+<div id="pace" class="value">0:00</div>
+<div class="label">PACE / KM</div>
+</div>
+
+<button id="startBtn">
+START
+</button>
+
+<div id="status">
+GPS 준비중...
+</div>
+
+<div class="bottom-nav">
+<a href="Home.html">Home</a>
+<a class="active" href="Run.html">Run</a>
+<a href="Passport.html">Passport</a>
+<a href="Identity.html">Identity</a>
+<a href="Profile.html">Profile</a>
+</div>
+
+<script>
+
+let running = false;
+let seconds = 0;
+let timerInterval;
+
+function updateTimer(){
+
+seconds++;
+
+const hrs =
+String(Math.floor(seconds/3600))
+.padStart(2,'0');
+
+const mins =
+String(Math.floor((seconds%3600)/60))
+.padStart(2,'0');
+
+const secs =
+String(seconds%60)
+.padStart(2,'0');
+
+document.getElementById('timer')
+.innerText =
+`${hrs}:${mins}:${secs}`;
+
+}
+
+document.getElementById('startBtn')
+.addEventListener('click',()=>{
+
+if(!running){
+
+running = true;
+
+timerInterval =
+setInterval(updateTimer,1000);
+
+document.getElementById('startBtn')
+.innerText = 'PAUSE';
+
+document.getElementById('status')
+.innerText =
+'러닝 측정 중';
+
+}else{
+
+running = false;
+
+clearInterval(timerInterval);
+
+document.getElementById('startBtn')
+.innerText = 'START';
+
+document.getElementById('status')
+.innerText =
+'일시정지';
+
+}
+
+});
+
+if(navigator.geolocation){
+
+document.getElementById('status')
+.innerText =
+'GPS 사용 가능';
+
+}else{
+
+document.getElementById('status')
+.innerText =
+'GPS 지원 안됨';
+
+}
+
+</script>
+
+</body>
+</html>
