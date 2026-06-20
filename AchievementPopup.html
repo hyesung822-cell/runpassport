@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -8,83 +7,149 @@
 
 <style>
 
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+
 body{
 background:#0B1023;
 color:white;
-font-family:sans-serif;
 display:flex;
 justify-content:center;
 align-items:center;
 height:100vh;
-margin:0;
+padding:24px;
 }
 
 .popup{
-
 background:#1C2550;
+border-radius:28px;
 padding:32px;
-border-radius:24px;
-width:320px;
+width:100%;
+max-width:360px;
 text-align:center;
-
 }
 
 .icon{
-font-size:64px;
-margin-bottom:12px;
+font-size:72px;
+margin-bottom:16px;
+}
+
+.type{
+font-size:12px;
+opacity:.7;
+margin-bottom:10px;
+letter-spacing:2px;
 }
 
 .title{
-font-size:28px;
-font-weight:bold;
+font-size:32px;
+font-weight:700;
 margin-bottom:12px;
 }
 
 .rarity{
 color:#D4A63D;
+font-weight:700;
 margin-bottom:20px;
 }
 
+.xp{
+font-size:20px;
+margin-bottom:24px;
+}
+
 button{
-
 width:100%;
-padding:14px;
-
+padding:16px;
 border:none;
-border-radius:12px;
-
+border-radius:18px;
 background:#D4A63D;
 color:#0B1023;
-
-font-weight:bold;
-
+font-weight:700;
+font-size:16px;
+cursor:pointer;
 }
 
 </style>
-
 </head>
 
 <body>
 
 <div class="popup">
 
-<div class="icon">
+<div id="icon" class="icon">
 🏃
 </div>
 
-<div class="title">
+<div id="type" class="type">
+NEW CARD
+</div>
+
+<div id="title" class="title">
 첫 5K
 </div>
 
-<div class="rarity">
+<div id="rarity" class="rarity">
 COMMON
 </div>
 
-<button onclick="history.back()">
+<div id="xp" class="xp">
++50 XP
+</div>
+
+<button onclick="goBack()">
 확인
 </button>
 
 </div>
+
+<script>
+
+const params =
+new URLSearchParams(window.location.search);
+
+const title =
+params.get("title") || "Achievement";
+
+const rarity =
+params.get("rarity") || "COMMON";
+
+const xp =
+params.get("xp") || "0";
+
+const type =
+params.get("type") || "CARD";
+
+const icon =
+params.get("icon") || "🏅";
+
+document.getElementById("title")
+.innerText = title;
+
+document.getElementById("rarity")
+.innerText = rarity;
+
+document.getElementById("xp")
+.innerText = "+" + xp + " XP";
+
+document.getElementById("icon")
+.innerText = icon;
+
+document.getElementById("type")
+.innerText =
+type === "IDENTITY"
+? "NEW IDENTITY"
+: "NEW CARD";
+
+function goBack(){
+history.back();
+}
+
+</script>
 
 </body>
 </html>

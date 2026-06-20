@@ -1,5 +1,7 @@
 function checkCards(user){
 
+const newlyUnlocked = [];
+
 let earnedCards =
 user.earnedCards || [];
 
@@ -9,70 +11,68 @@ user.distance || 0;
 const totalRuns =
 user.runs || 0;
 
-/*
-거리 카드
-*/
+const cardRules = [
 
-if(
-totalDistance >= 5 &&
-!earnedCards.includes("distance_001")
-){
-earnedCards.push("distance_001");
+{
+id:"distance_001",
+condition: totalDistance >= 5
+},
+
+{
+id:"distance_002",
+condition: totalDistance >= 10
+},
+
+{
+id:"distance_007",
+condition: totalDistance >= 100
+},
+
+{
+id:"distance_010",
+condition: totalDistance >= 1000
+},
+
+{
+id:"habit_001",
+condition: totalRuns >= 1
+},
+
+{
+id:"habit_003",
+condition: totalRuns >= 3
+},
+
+{
+id:"habit_004",
+condition: totalRuns >= 10
+},
+
+{
+id:"habit_006",
+condition: totalRuns >= 30
 }
 
-if(
-totalDistance >= 10 &&
-!earnedCards.includes("distance_002")
-){
-earnedCards.push("distance_002");
-}
+];
+
+cardRules.forEach(card=>{
 
 if(
-totalDistance >= 100 &&
-!earnedCards.includes("distance_007")
+card.condition &&
+!earnedCards.includes(card.id)
 ){
-earnedCards.push("distance_007");
+
+earnedCards.push(card.id);
+
+newlyUnlocked.push(card.id);
+
 }
 
-if(
-totalDistance >= 1000 &&
-!earnedCards.includes("distance_010")
-){
-earnedCards.push("distance_010");
-}
+});
 
-/*
-습관 카드
-*/
-
-if(
-totalRuns >= 1 &&
-!earnedCards.includes("habit_001")
-){
-earnedCards.push("habit_001");
-}
-
-if(
-totalRuns >= 3 &&
-!earnedCards.includes("habit_003")
-){
-earnedCards.push("habit_003");
-}
-
-if(
-totalRuns >= 10 &&
-!earnedCards.includes("habit_004")
-){
-earnedCards.push("habit_004");
-}
-
-if(
-totalRuns >= 30 &&
-!earnedCards.includes("habit_006")
-){
-earnedCards.push("habit_006");
-}
-
-return earnedCards;
+return {
+earnedCards,
+newlyUnlocked
+};
 
 }

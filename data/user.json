@@ -1,26 +1,42 @@
 {
-"name":"Hyeseong",
+  "id": "user_001",
 
-"earnedCards":[
-"time_001",
-"time_002",
-"habit_001",
-"distance_001"
-],
+  "name": "Hyeseong",
 
-"unlockedIdentities":[
-"dawn_hunter"
-],
+  "level": 24,
 
-"mainIdentity":"dawn_hunter",
+  "xp": 2847,
 
-"level":24,
-"runs":94,
-"distance":2847,
+  "runs": 94,
 
-"nextGoal":{
-"name":"100km 클럽",
-"current":4,
-"target":100
-}
+  "distance": 2847,
+
+  "totalDuration": 338400,
+
+  "mainIdentity": "dawn_hunter",
+
+  "earnedCards": [
+    "time_001",
+    "time_002",
+    "habit_001",
+    "distance_001"
+  ],
+
+  "unlockedIdentities": [
+    "dawn_hunter"
+  ],
+
+  "nextGoal": {
+    "name": "100km 클럽",
+    "current": 47,
+    "target": 100
+  },
+
+  "stats": {
+    "longestRun": 21.1,
+    "fastest5k": "25:34",
+    "fastest10k": "55:12",
+    "currentStreak": 7,
+    "bestStreak": 14
+  }
 }

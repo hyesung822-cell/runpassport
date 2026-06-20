@@ -1,22 +1,45 @@
 [
-{
-"id": "run_001",
-"date": "2026-06-20",
-"startTime": "06:30",
-"distance": 5.2,
-"duration": 1860,
-"pace": "5:57",
-"calories": 320,
-"route": []
-},
-{
-"id": "run_002",
-"date": "2026-06-22",
-"startTime": "20:15",
-"distance": 8.1,
-"duration": 2940,
-"pace": "6:03",
-"calories": 470,
-"route": []
-}
+  {
+    "id": "run_001",
+    "date": "2026-06-20",
+    "startTime": "06:30",
+    "distance": 5.2,
+    "duration": 1860,
+    "pace": "5:57",
+    "calories": 320,
+    "xp": 52,
+    "weather": "sunny",
+    "identityTags": [
+      "dawn"
+    ]
+  },
+  {
+    "id": "run_002",
+    "date": "2026-06-22",
+    "startTime": "20:15",
+    "distance": 8.1,
+    "duration": 2940,
+    "pace": "6:03",
+    "calories": 470,
+    "xp": 81,
+    "weather": "night",
+    "identityTags": [
+      "night"
+    ]
+  },
+  {
+    "id": "run_003",
+    "date": "2026-06-24",
+    "startTime": "07:00",
+    "distance": 10.0,
+    "duration": 3540,
+    "pace": "5:54",
+    "calories": 610,
+    "xp": 100,
+    "weather": "cloudy",
+    "identityTags": [
+      "dawn",
+      "growth"
+    ]
+  }
 ]

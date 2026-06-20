@@ -40,18 +40,22 @@ font-weight:700;
 
 .label{
 margin-top:6px;
-opacity:0.7;
+opacity:.7;
+}
+
+#status{
+margin-bottom:24px;
+opacity:.8;
 }
 
 .button-group{
 display:flex;
 gap:12px;
 justify-content:center;
-margin-top:24px;
 }
 
 button{
-padding:16px 22px;
+padding:16px 24px;
 border:none;
 border-radius:18px;
 font-size:16px;
@@ -67,11 +71,6 @@ color:#0B1023;
 .finish-btn{
 background:#1C2550;
 color:white;
-}
-
-#status{
-margin-top:20px;
-opacity:0.8;
 }
 
 .bottom-nav{
@@ -142,7 +141,9 @@ FINISH
 
 <div class="bottom-nav">
 
-<a href="Home.html">Home</a>
+<a href="Home.html">
+Home
+</a>
 
 <a class="active" href="Run.html">
 Run
@@ -165,15 +166,11 @@ Profile
 <script>
 
 let running = false;
-
 let seconds = 0;
-
 let timerInterval;
 
 let watchId;
-
 let totalDistance = 0;
-
 let lastPosition = null;
 
 function calculateDistance(
@@ -193,12 +190,14 @@ const dLon =
 
 const a =
 Math.sin(dLat/2) *
-Math.sin(dLat/2) +
-
-Math.cos(lat1*Math.PI/180) *
-Math.cos(lat2*Math.PI/180) *
-
-Math.sin(dLon/2) *
+Math.sin(dLat/2)
++
+Math.cos(lat1*Math.PI/180)
+*
+Math.cos(lat2*Math.PI/180)
+*
+Math.sin(dLon/2)
+*
 Math.sin(dLon/2);
 
 const c =
@@ -221,14 +220,17 @@ String(Math.floor(seconds/3600))
 .padStart(2,'0');
 
 const mins =
-String(Math.floor((seconds%3600)/60))
-.padStart(2,'0');
+String(
+Math.floor(
+(seconds%3600)/60
+)
+).padStart(2,'0');
 
 const secs =
 String(seconds%60)
 .padStart(2,'0');
 
-document.getElementById('timer')
+document.getElementById("timer")
 .innerText =
 `${hrs}:${mins}:${secs}`;
 
@@ -247,7 +249,7 @@ Math.floor(
 paceSeconds % 60
 );
 
-document.getElementById('pace')
+document.getElementById("pace")
 .innerText =
 `${paceMin}:${String(paceSec).padStart(2,'0')}`;
 
@@ -256,21 +258,22 @@ document.getElementById('pace')
 }
 
 document
-.getElementById('startBtn')
-.addEventListener('click',()=>{
+.getElementById("startBtn")
+.addEventListener("click",()=>{
 
 if(!running){
 
 running = true;
 
 document
-.getElementById('startBtn')
-.innerText = 'PAUSE';
+.getElementById("startBtn")
+.innerText =
+"PAUSE";
 
 document
-.getElementById('status')
+.getElementById("status")
 .innerText =
-'GPS 추적 중';
+"GPS 추적 중";
 
 timerInterval =
 setInterval(
@@ -302,7 +305,7 @@ lon
 totalDistance += distance;
 
 document
-.getElementById('distance')
+.getElementById("distance")
 .innerText =
 totalDistance.toFixed(2);
 
@@ -318,9 +321,9 @@ lon
 ()=>{
 
 document
-.getElementById('status')
+.getElementById("status")
 .innerText =
-'GPS 권한 필요';
+"GPS 권한 필요";
 
 }
 
@@ -334,27 +337,27 @@ clearInterval(
 timerInterval
 );
 
-navigator.geolocation
-.clearWatch(
+navigator.geolocation.clearWatch(
 watchId
 );
 
 document
-.getElementById('startBtn')
-.innerText = 'START';
+.getElementById("startBtn")
+.innerText =
+"START";
 
 document
-.getElementById('status')
+.getElementById("status")
 .innerText =
-'일시정지';
+"일시정지";
 
 }
 
 });
 
 document
-.getElementById('finishBtn')
-.addEventListener('click',()=>{
+.getElementById("finishBtn")
+.addEventListener("click",()=>{
 
 clearInterval(
 timerInterval
@@ -362,16 +365,14 @@ timerInterval
 
 if(watchId){
 
-navigator.geolocation
-.clearWatch(
+navigator.geolocation.clearWatch(
 watchId
 );
 
 }
 
-alert(
-`러닝 완료!\n\n거리: ${totalDistance.toFixed(2)}km`
-);
+window.location =
+`RunDetail.html?id=run_001`;
 
 });
 
