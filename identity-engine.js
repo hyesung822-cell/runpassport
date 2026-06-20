@@ -1,14 +1,21 @@
-function checkIdentities(user, identities){
+function checkIdentities(
+user,
+identities
+){
 
-const unlocked =
+let unlocked =
 user.unlockedIdentities || [];
 
-identities.forEach(identity => {
+identities.forEach(identity=>{
 
-if(!identity.requiredCards) return;
+if(
+!identity.requiredCards
+)
+return;
 
 const completed =
-identity.requiredCards.every(cardId =>
+identity.requiredCards.every(
+cardId=>
 user.earnedCards.includes(cardId)
 );
 
@@ -16,9 +23,7 @@ if(
 completed &&
 !unlocked.includes(identity.id)
 ){
-
 unlocked.push(identity.id);
-
 }
 
 });

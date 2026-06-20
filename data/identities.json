@@ -1,66 +1,106 @@
 [
-{
-"id": "dawn_hunter",
-"name": "새벽 사냥꾼",
-"rarity": "rare",
-"icon": "🌅",
-"description": "새벽 공기를 가장 사랑하는 러너",
-"condition": "새벽 관련 카드 3장 수집"
-},
-{
-"id": "moon_tracker",
-"name": "달빛 추적자",
-"rarity": "rare",
-"icon": "🌙",
-"description": "고요한 밤의 거리를 누비는 러너",
-"condition": "야간 러닝 카드 3장 수집"
-},
-{
-"id": "pathfinder",
-"name": "의지의 개척자",
-"rarity": "epic",
-"icon": "🧭",
-"description": "포기하지 않고 새로운 길을 만들어간다",
-"condition": "거리 카드 5장 수집"
-},
-{
-"id": "routine_master",
-"name": "루틴의 지배자",
-"rarity": "legendary",
-"icon": "👑",
-"description": "달리기를 삶의 일부로 만든 존재",
-"condition": "습관 카드 5장 수집"
-},
-{
-"id": "growing_runner",
-"name": "성장하는 러너",
-"rarity": "rare",
-"icon": "🌱",
-"description": "어제보다 나은 자신을 만들어간다",
-"condition": "성장 카드 3장 수집"
-},
-{
-"id": "record_breaker",
-"name": "기록 파괴자",
-"rarity": "epic",
-"icon": "⚡",
-"description": "자신의 한계를 계속 넘어선다",
-"condition": "PB 관련 카드 4장 수집"
-},
-{
-"id": "road_explorer",
-"name": "길의 개척자",
-"rarity": "rare",
-"icon": "🗺️",
-"description": "세상을 달리며 탐험하는 러너",
-"condition": "지역 카드 3장 수집"
-},
-{
-"id": "nomad_runner",
-"name": "노마드 러너",
-"rarity": "legendary",
-"icon": "🌎",
-"description": "국경을 넘어 달리는 여행자",
-"condition": "국가 카드 5장 수집"
-}
+  {
+    "id": "dawn_hunter",
+    "name": "새벽 사냥꾼",
+    "icon": "🌅",
+    "rarity": "rare",
+    "description": "새벽 공기를 가장 사랑하는 러너",
+    "condition": "새벽 관련 카드 3장 수집",
+    "requiredCards": [
+      "time_001",
+      "time_002",
+      "time_006"
+    ]
+  },
+  {
+    "id": "moon_tracker",
+    "name": "달빛 추적자",
+    "icon": "🌙",
+    "rarity": "rare",
+    "description": "밤이 깊어질수록 더 멀리 달리는 러너",
+    "condition": "야간 러닝 카드 수집",
+    "requiredCards": [
+      "time_002",
+      "time_006"
+    ]
+  },
+  {
+    "id": "pathfinder",
+    "name": "의지의 개척자",
+    "icon": "🧭",
+    "rarity": "epic",
+    "description": "새로운 길을 두려워하지 않는 탐험가",
+    "condition": "탐험 관련 카드 수집",
+    "requiredCards": [
+      "passport_001",
+      "passport_002",
+      "passport_007"
+    ]
+  },
+  {
+    "id": "routine_master",
+    "name": "루틴의 지배자",
+    "icon": "🔥",
+    "rarity": "legendary",
+    "description": "꾸준함을 무기로 성장한 러너",
+    "condition": "습관 카드 4장 수집",
+    "requiredCards": [
+      "habit_001",
+      "habit_003",
+      "habit_004",
+      "habit_006"
+    ]
+  },
+  {
+    "id": "growing_runner",
+    "name": "성장하는 러너",
+    "icon": "📈",
+    "rarity": "rare",
+    "description": "어제보다 더 나은 자신을 만드는 러너",
+    "condition": "성장 카드 2장 수집",
+    "requiredCards": [
+      "growth_001",
+      "growth_003"
+    ]
+  },
+  {
+    "id": "record_breaker",
+    "name": "기록 파괴자",
+    "icon": "⚡",
+    "rarity": "epic",
+    "description": "한계를 뛰어넘으며 기록을 갱신하는 러너",
+    "condition": "성장 카드 4장 수집",
+    "requiredCards": [
+      "growth_001",
+      "growth_003",
+      "growth_005",
+      "growth_009"
+    ]
+  },
+  {
+    "id": "road_explorer",
+    "name": "길의 개척자",
+    "icon": "🛣️",
+    "rarity": "rare",
+    "description": "달리는 곳마다 새로운 길을 만드는 러너",
+    "condition": "탐험 카드 2장 수집",
+    "requiredCards": [
+      "passport_001",
+      "passport_002"
+    ]
+  },
+  {
+    "id": "nomad_runner",
+    "name": "노마드 러너",
+    "icon": "🌍",
+    "rarity": "legendary",
+    "description": "세계를 달리며 자신만의 여정을 만드는 러너",
+    "condition": "여행 관련 카드 완성",
+    "requiredCards": [
+      "passport_001",
+      "passport_002",
+      "passport_007",
+      "passport_013"
+    ]
+  }
 ]

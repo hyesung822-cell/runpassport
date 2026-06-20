@@ -1,39 +1,78 @@
 function checkCards(user){
 
-const earned =
+let earnedCards =
 user.earnedCards || [];
 
 const totalDistance =
 user.distance || 0;
 
+const totalRuns =
+user.runs || 0;
+
+/*
+거리 카드
+*/
+
 if(
 totalDistance >= 5 &&
-!earned.includes("distance_001")
+!earnedCards.includes("distance_001")
 ){
-earned.push("distance_001");
+earnedCards.push("distance_001");
 }
 
 if(
 totalDistance >= 10 &&
-!earned.includes("distance_002")
+!earnedCards.includes("distance_002")
 ){
-earned.push("distance_002");
+earnedCards.push("distance_002");
 }
 
 if(
 totalDistance >= 100 &&
-!earned.includes("distance_007")
+!earnedCards.includes("distance_007")
 ){
-earned.push("distance_007");
+earnedCards.push("distance_007");
 }
 
 if(
 totalDistance >= 1000 &&
-!earned.includes("distance_010")
+!earnedCards.includes("distance_010")
 ){
-earned.push("distance_010");
+earnedCards.push("distance_010");
 }
 
-return earned;
+/*
+습관 카드
+*/
+
+if(
+totalRuns >= 1 &&
+!earnedCards.includes("habit_001")
+){
+earnedCards.push("habit_001");
+}
+
+if(
+totalRuns >= 3 &&
+!earnedCards.includes("habit_003")
+){
+earnedCards.push("habit_003");
+}
+
+if(
+totalRuns >= 10 &&
+!earnedCards.includes("habit_004")
+){
+earnedCards.push("habit_004");
+}
+
+if(
+totalRuns >= 30 &&
+!earnedCards.includes("habit_006")
+){
+earnedCards.push("habit_006");
+}
+
+return earnedCards;
 
 }
