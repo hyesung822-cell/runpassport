@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RunPassport - Run Detail</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+
+body{
+background:#0B1023;
+color:white;
+max-width:430px;
+margin:auto;
+padding:24px;
+padding-bottom:100px;
+}
+
+.run-card{
+background:#1C2550;
+border-radius:24px;
+padding:24px;
+text-align:center;
+}
+
+.date{
+font-size:18px;
+opacity:0.8;
+margin-bottom:20px;
+}
+
+.distance{
+font-size:56px;
+font-weight:700;
+margin-bottom:8px;
+}
+
+.unit{
+opacity:0.7;
+margin-bottom:24px;
+}
+
+.stat{
+background:#2A3467;
+padding:16px;
+border-radius:16px;
+margin-bottom:12px;
+}
+
+.label{
+font-size:12px;
+opacity:0.7;
+margin-bottom:4px;
+}
+
+.value{
+font-size:22px;
+font-weight:700;
+}
+
+.message{
+margin-top:20px;
+font-size:18px;
+}
+
+.back{
+display:inline-block;
+margin-top:20px;
+color:#D4A63D;
+text-decoration:none;
+}
+
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+max-width:430px;
+margin:auto;
+background:#141A33;
+display:flex;
+justify-content:space-around;
+padding:18px 0;
+border-top:1px solid #252D52;
+}
+
+.bottom-nav a{
+color:white;
+text-decoration:none;
+font-size:14px;
+}
+
+.active{
+color:#D4A63D !important;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="run-card">
+
+<div id="date" class="date">
+Loading...
+</div>
+
+<div id="distance" class="distance">
+0
+</div>
+
+<div class="unit">
+KM
+</div>
+
+<div class="stat">
+
+<div class="label">
+TIME
+</div>
+
+<div id="duration" class="value">
+0
+</div>
+
+</div>
+
+<div class="stat">
+
+<div class="label">
+PACE
+</div>
+
+<div id="pace" class="value">
+0
+</div>
+
+</div>
+
+<div class="stat">
+
+<div class="label">
+CALORIES
+</div>
+
+<div id="calories" class="value">
+0
+</div>
+
+</div>
+
+<div class="message">
+🎉 Great Run!
+</div>
+
+</div>
+
+<a class="back" href="Calendar.html">
+← Calendar
+</a>
+
+<div class="bottom-nav">
+
+<a href="Home.html">Home</a>
+
+<a href="Run.html">Run</a>
+
+<a class="active" href="Calendar.html">
+Calendar
+</a>
+
+<a href="Passport.html">Passport</a>
+
+<a href="Profile.html">Profile</a>
+
+</div>
+
+<script>
+
+const params =
+new URLSearchParams(window.location.search);
+
+const runId =
+params.get("id");
+
+fetch('./data/runs.json')
+
+.then(r=>r.json())
+
+.then(runs=>{
+
+const run =
+runs.find(r=>r.id===runId);
+
+if(!run) return;
+
+document.getElementById('date')
+.innerText =
+run.date;
+
+document.getElementById('distance')
+.innerText =
+run.distance;
+
+document.getElementById('duration')
+.innerText =
+Math.floor(run.duration/60) + '분';
+
+document.getElementById('pace')
+.innerText =
+run.pace + '/km';
+
+document.getElementById('calories')
+.innerText =
+run.calories + ' kcal';
+
+});
+
+</script>
+
+</body>
+</html>

@@ -26,39 +26,49 @@ padding-bottom:100px;
 
 h1{
 margin-bottom:24px;
+font-size:32px;
 }
 
 .calendar{
 display:grid;
 grid-template-columns:repeat(7,1fr);
 gap:8px;
-margin-bottom:30px;
+margin-bottom:32px;
 }
 
 .day{
 background:#1C2550;
-border-radius:12px;
+border-radius:14px;
 padding:10px;
 text-align:center;
-min-height:60px;
+min-height:65px;
+}
+
+.day-number{
+font-size:14px;
 }
 
 .run{
-margin-top:6px;
-font-size:12px;
+margin-top:8px;
+font-size:14px;
 }
 
 .section-title{
-font-size:22px;
+font-size:24px;
 font-weight:700;
 margin-bottom:16px;
 }
 
+.run-link{
+text-decoration:none;
+color:white;
+}
+
 .run-card{
 background:#1C2550;
-border-radius:16px;
-padding:16px;
-margin-bottom:10px;
+border-radius:18px;
+padding:18px;
+margin-bottom:12px;
 }
 
 .date{
@@ -67,9 +77,14 @@ opacity:0.7;
 }
 
 .distance{
-font-size:22px;
+font-size:24px;
 font-weight:700;
+margin-top:8px;
+}
+
+.duration{
 margin-top:6px;
+opacity:0.8;
 }
 
 .bottom-nav{
@@ -118,17 +133,25 @@ Loading...
 
 <div class="bottom-nav">
 
-<a href="Home.html">Home</a>
+<a href="Home.html">
+Home
+</a>
 
-<a href="Run.html">Run</a>
+<a href="Run.html">
+Run
+</a>
 
 <a class="active" href="Calendar.html">
 Calendar
 </a>
 
-<a href="Passport.html">Passport</a>
+<a href="Passport.html">
+Passport
+</a>
 
-<a href="Profile.html">Profile</a>
+<a href="Profile.html">
+Profile
+</a>
 
 </div>
 
@@ -136,9 +159,9 @@ Calendar
 
 fetch('./data/runs.json')
 
-.then(r=>r.json())
+.then(response => response.json())
 
-.then(runs=>{
+.then(runs => {
 
 const calendar =
 document.getElementById('calendar');
@@ -148,7 +171,7 @@ calendar.innerHTML = '';
 for(let day=1; day<=30; day++){
 
 const runExists =
-runs.find(run=>{
+runs.find(run => {
 
 const runDay =
 Number(
@@ -163,7 +186,9 @@ calendar.innerHTML += `
 
 <div class="day">
 
+<div class="day-number">
 ${day}
+</div>
 
 <div class="run">
 ${runExists ? '🏃' : ''}
@@ -183,9 +208,14 @@ runList.innerHTML = '';
 runs
 .slice()
 .reverse()
-.forEach(run=>{
+.forEach(run => {
 
 runList.innerHTML += `
+
+<a
+class="run-link"
+href="RunDetail.html?id=${run.id}"
+>
 
 <div class="run-card">
 
@@ -197,15 +227,27 @@ ${run.date}
 ${run.distance} km
 </div>
 
-<div>
+<div class="duration">
 ${Math.floor(run.duration/60)}분
 </div>
 
 </div>
 
+</a>
+
 `;
 
 });
+
+})
+
+.catch(error => {
+
+console.error(error);
+
+document.getElementById('calendar')
+.innerHTML =
+'러닝 데이터를 불러오지 못했습니다.';
 
 });
 
