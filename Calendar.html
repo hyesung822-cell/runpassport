@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RunPassport - Calendar</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+
+body{
+background:#0B1023;
+color:white;
+max-width:430px;
+margin:auto;
+padding:24px;
+padding-bottom:100px;
+}
+
+h1{
+margin-bottom:24px;
+}
+
+.calendar{
+display:grid;
+grid-template-columns:repeat(7,1fr);
+gap:8px;
+margin-bottom:30px;
+}
+
+.day{
+background:#1C2550;
+border-radius:12px;
+padding:10px;
+text-align:center;
+min-height:60px;
+}
+
+.run{
+margin-top:6px;
+font-size:12px;
+}
+
+.section-title{
+font-size:22px;
+font-weight:700;
+margin-bottom:16px;
+}
+
+.run-card{
+background:#1C2550;
+border-radius:16px;
+padding:16px;
+margin-bottom:10px;
+}
+
+.date{
+font-size:14px;
+opacity:0.7;
+}
+
+.distance{
+font-size:22px;
+font-weight:700;
+margin-top:6px;
+}
+
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+max-width:430px;
+margin:auto;
+background:#141A33;
+display:flex;
+justify-content:space-around;
+padding:18px 0;
+border-top:1px solid #252D52;
+}
+
+.bottom-nav a{
+color:white;
+text-decoration:none;
+font-size:14px;
+}
+
+.active{
+color:#D4A63D !important;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Calendar</h1>
+
+<div id="calendar" class="calendar">
+Loading...
+</div>
+
+<div class="section-title">
+Recent Runs
+</div>
+
+<div id="run-list">
+Loading...
+</div>
+
+<div class="bottom-nav">
+
+<a href="Home.html">Home</a>
+
+<a href="Run.html">Run</a>
+
+<a class="active" href="Calendar.html">
+Calendar
+</a>
+
+<a href="Passport.html">Passport</a>
+
+<a href="Profile.html">Profile</a>
+
+</div>
+
+<script>
+
+fetch('./data/runs.json')
+
+.then(r=>r.json())
+
+.then(runs=>{
+
+const calendar =
+document.getElementById('calendar');
+
+calendar.innerHTML = '';
+
+for(let day=1; day<=30; day++){
+
+const runExists =
+runs.find(run=>{
+
+const runDay =
+Number(
+run.date.split('-')[2]
+);
+
+return runDay === day;
+
+});
+
+calendar.innerHTML += `
+
+<div class="day">
+
+${day}
+
+<div class="run">
+${runExists ? '🏃' : ''}
+</div>
+
+</div>
+
+`;
+
+}
+
+const runList =
+document.getElementById('run-list');
+
+runList.innerHTML = '';
+
+runs
+.slice()
+.reverse()
+.forEach(run=>{
+
+runList.innerHTML += `
+
+<div class="run-card">
+
+<div class="date">
+${run.date}
+</div>
+
+<div class="distance">
+${run.distance} km
+</div>
+
+<div>
+${Math.floor(run.duration/60)}분
+</div>
+
+</div>
+
+`;
+
+});
+
+});
+
+</script>
+
+</body>
+</html>
