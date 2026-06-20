@@ -25,13 +25,13 @@ padding-bottom:100px;
 }
 
 .greeting{
-color:#B8C0FF;
 font-size:14px;
+color:#B8C0FF;
 margin-bottom:8px;
 }
 
 .user-name{
-font-size:36px;
+font-size:42px;
 font-weight:700;
 margin-bottom:20px;
 }
@@ -40,7 +40,7 @@ margin-bottom:20px;
 display:flex;
 gap:10px;
 flex-wrap:wrap;
-margin-bottom:30px;
+margin-bottom:24px;
 }
 
 .badge{
@@ -48,60 +48,90 @@ padding:8px 14px;
 border:1px solid #4D5FFF;
 border-radius:999px;
 font-size:14px;
-color:#D8DEFF;
 }
 
 .identity-card{
 background:linear-gradient(135deg,#1C2550,#2D3E88);
 border-radius:24px;
 padding:24px;
-margin-bottom:30px;
+margin-bottom:24px;
 }
 
 .identity-label{
 font-size:12px;
-letter-spacing:1px;
 opacity:0.8;
 margin-bottom:10px;
 }
 
 .identity-icon{
-font-size:48px;
+font-size:52px;
 margin-bottom:10px;
 }
 
 .identity-name{
 font-size:30px;
 font-weight:700;
-margin-bottom:10px;
+margin-bottom:8px;
 }
 
 .identity-desc{
-color:#D5DCFF;
+opacity:0.9;
 line-height:1.5;
 }
 
 .section-title{
 font-size:24px;
 font-weight:700;
-margin-bottom:16px;
+margin-bottom:14px;
+margin-top:24px;
+}
+
+.stats{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
 }
 
 .stat-card{
 background:#1C2550;
-padding:20px;
 border-radius:20px;
-margin-bottom:12px;
+padding:20px;
 }
 
 .stat-value{
-font-size:28px;
+font-size:30px;
 font-weight:700;
 }
 
 .stat-label{
-opacity:0.8;
-margin-top:6px;
+opacity:0.7;
+margin-top:4px;
+}
+
+.recent-card{
+background:#1C2550;
+padding:14px;
+border-radius:16px;
+margin-bottom:10px;
+}
+
+.goal-card{
+background:#1C2550;
+padding:20px;
+border-radius:20px;
+}
+
+.progress{
+background:#313A6C;
+height:10px;
+border-radius:999px;
+margin-top:12px;
+overflow:hidden;
+}
+
+.progress-fill{
+background:#D4A63D;
+height:100%;
 }
 
 .bottom-nav{
@@ -148,8 +178,8 @@ Loading...
 LEVEL
 </div>
 
-<div id="stats" class="badge">
-STATS
+<div id="stats-badge" class="badge">
+Stats
 </div>
 
 </div>
@@ -175,50 +205,64 @@ Loading...
 </div>
 
 <div class="section-title">
-Collection
+Stats
+</div>
+
+<div class="stats">
+
+<div class="stat-card">
+<div id="distance" class="stat-value">0</div>
+<div class="stat-label">KM</div>
 </div>
 
 <div class="stat-card">
-
-<div id="card-count" class="stat-value">
-0
-</div>
-
-<div class="stat-label">
-Cards Collected
-</div>
-
+<div id="runs" class="stat-value">0</div>
+<div class="stat-label">Runs</div>
 </div>
 
 <div class="stat-card">
-
-<div id="identity-count" class="stat-value">
-0
+<div id="cards" class="stat-value">0</div>
+<div class="stat-label">Cards</div>
 </div>
 
-<div class="stat-label">
-Identities Unlocked
+<div class="stat-card">
+<div id="identities" class="stat-value">0</div>
+<div class="stat-label">Identities</div>
+</div>
+
+</div>
+
+<div class="section-title">
+Recent Cards
+</div>
+
+<div id="recent-cards">
+Loading...
+</div>
+
+<div class="section-title">
+Next Goal
+</div>
+
+<div class="goal-card">
+
+<div id="goal-name">
+Loading...
+</div>
+
+<div id="goal-progress">
+Loading...
+</div>
+
+<div class="progress">
+<div id="progress-fill" class="progress-fill"></div>
 </div>
 
 </div>
 
 <div class="bottom-nav">
 
-<a class="active" href="Home.html">
-Home
-</a>
-
-<a href="Passport.html">
-Passport
-</a>
-
-<a href="Identity.html">
-Identity
-</a>
-
-<a href="Profile.html">
-Profile
-</a>
+<a class="active" href="Home.html">Home</a> <a href="Run.html">Run</a> <a href="Passport.html">Passport</a> <a href="Identity.html">Identity</a> <a href="Profile.html">Profile</a>
 
 </div>
 
@@ -226,28 +270,31 @@ Profile
 
 Promise.all([
 fetch('./data/user.json').then(r=>r.json()),
-fetch('./data/identities.json').then(r=>r.json())
+fetch('./data/identities.json').then(r=>r.json()),
+fetch('./data/cards.json').then(r=>r.json())
 ])
 
-.then(([user,identities])=>{
+.then(([user,identities,cards])=>{
 
-document.getElementById('user-name')
-.innerText = user.name;
+document.getElementById('user-name').innerText =
+user.name;
 
-document.getElementById('level')
-.innerText = 'LEVEL ' + user.level;
+document.getElementById('level').innerText =
+'LEVEL ' + user.level;
 
-document.getElementById('stats')
-.innerText =
-user.runs + ' runs · ' +
-user.distance + ' km';
+document.getElementById('stats-badge').innerText =
+user.runs + ' runs · ' + user.distance + ' km';
 
-document.getElementById('card-count')
-.innerText =
+document.getElementById('distance').innerText =
+user.distance;
+
+document.getElementById('runs').innerText =
+user.runs;
+
+document.getElementById('cards').innerText =
 user.earnedCards.length;
 
-document.getElementById('identity-count')
-.innerText =
+document.getElementById('identities').innerText =
 user.unlockedIdentities.length;
 
 const identity =
@@ -257,25 +304,64 @@ i => i.id === user.mainIdentity
 
 if(identity){
 
-document.getElementById('identity-name')
-.innerText =
+document.getElementById('identity-name').innerText =
 identity.name;
 
-document.getElementById('identity-description')
-.innerText =
+document.getElementById('identity-description').innerText =
 identity.description;
 
-document.getElementById('identity-icon')
-.innerText =
+document.getElementById('identity-icon').innerText =
 identity.icon;
 
 }
 
-})
+const recent =
+user.earnedCards.slice(-3);
 
-.catch(error=>{
+const recentContainer =
+document.getElementById('recent-cards');
 
-console.error(error);
+recentContainer.innerHTML='';
+
+const icons={
+time:'⏰',
+habit:'🔥',
+distance:'🏃',
+passport:'🌍',
+growth:'📈'
+};
+
+recent.forEach(cardId=>{
+
+const card=
+cards.find(c=>c.id===cardId);
+
+if(card){
+
+recentContainer.innerHTML += `
+<div class="recent-card">
+${icons[card.category] || '🏅'}
+ ${card.name}
+</div>
+`;
+
+}
+
+});
+
+document.getElementById('goal-name').innerText =
+user.nextGoal.name;
+
+document.getElementById('goal-progress').innerText =
+`${user.nextGoal.current} / ${user.nextGoal.target}`;
+
+const percent =
+(user.nextGoal.current /
+user.nextGoal.target) * 100;
+
+document.getElementById('progress-fill')
+.style.width =
+percent + '%';
 
 });
 
