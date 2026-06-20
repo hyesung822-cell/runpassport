@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -21,14 +20,15 @@ color:white;
 max-width:430px;
 margin:auto;
 padding:24px;
-padding-bottom:100px;
+padding-bottom:40px;
 }
 
-.identity-card{
-background:#1C2550;
+.hero{
+background:linear-gradient(135deg,#1C2550,#2D3E88);
 border-radius:28px;
-padding:28px;
+padding:32px;
 text-align:center;
+margin-bottom:24px;
 }
 
 .icon{
@@ -39,174 +39,164 @@ margin-bottom:16px;
 .name{
 font-size:32px;
 font-weight:700;
-margin-bottom:10px;
+margin-bottom:12px;
 }
 
 .rarity{
-font-size:14px;
+display:inline-block;
+padding:8px 16px;
+border-radius:999px;
+font-size:12px;
 font-weight:700;
 margin-bottom:20px;
 }
 
-.common{
-color:#C9CDD4;
-}
-
 .rare{
-color:#4DA3FF;
+background:#5DA9FF;
+color:white;
 }
 
 .epic{
-color:#B06CFF;
+background:#C07BFF;
+color:white;
 }
 
 .legendary{
-color:#F5C451;
+background:#D4A63D;
+color:#0B1023;
 }
 
-.section{
-margin-top:24px;
-text-align:left;
+.description{
+line-height:1.6;
+opacity:.9;
+}
+
+.section-title{
+font-size:22px;
+font-weight:700;
+margin-bottom:12px;
+}
+
+.info-card{
+background:#1C2550;
+padding:18px;
+border-radius:18px;
+margin-bottom:12px;
 }
 
 .label{
-font-size:13px;
-font-weight:700;
-color:#D4A63D;
-margin-bottom:8px;
+font-size:12px;
+opacity:.7;
+margin-bottom:6px;
 }
 
 .value{
-line-height:1.6;
+font-size:18px;
+font-weight:700;
 }
 
-.main-button{
-width:100%;
-margin-top:24px;
-padding:16px;
-border:none;
-border-radius:16px;
+.main-btn{
+display:block;
+margin-top:20px;
+text-align:center;
 background:#D4A63D;
 color:#0B1023;
+padding:16px;
+border-radius:18px;
+text-decoration:none;
 font-weight:700;
-font-size:15px;
 }
 
-.back{
-display:inline-block;
-margin-top:20px;
-color:#D4A63D;
-text-decoration:none;
-}
-
-.bottom-nav{
-position:fixed;
-bottom:0;
-left:0;
-right:0;
-max-width:430px;
-margin:auto;
-background:#141A33;
-display:flex;
-justify-content:space-around;
-padding:18px 0;
-border-top:1px solid #252D52;
-}
-
-.bottom-nav a{
+.back-btn{
+display:block;
+margin-top:12px;
+text-align:center;
+background:#1C2550;
 color:white;
+padding:16px;
+border-radius:18px;
 text-decoration:none;
-font-size:14px;
-}
-
-.active{
-color:#D4A63D !important;
 }
 
 </style>
-
 </head>
 
 <body>
 
-<div class="identity-card">
+<div class="hero">
 
-<div id="identity-icon" class="icon">
+<div id="icon" class="icon">
 🌅
 </div>
 
-<div id="identity-name" class="name">
+<div id="name" class="name">
 Loading...
 </div>
 
-<div id="identity-rarity" class="rarity">
+<div id="rarity-container">
 Loading...
 </div>
 
-<div class="section">
+<div id="description" class="description">
+Loading...
+</div>
+
+</div>
+
+<div class="section-title">
+Identity Info
+</div>
+
+<div class="info-card">
 
 <div class="label">
-설명
+RARITY
 </div>
 
-<div id="identity-description" class="value">
+<div id="rarity-text" class="value">
 Loading...
 </div>
 
 </div>
 
-<div class="section">
+<div class="info-card">
 
 <div class="label">
-획득 조건
+UNLOCK CONDITION
 </div>
 
-<div id="identity-condition" class="value">
+<div id="condition" class="value">
 Loading...
 </div>
 
 </div>
 
-<button class="main-button">
-대표 정체성
-</button>
-
-</div>
-
-<a class="back" href="Identity.html">
-← Identity로 돌아가기
+<a
+href="#"
+class="main-btn">
+⭐ Set as Main Identity
 </a>
 
-<div class="bottom-nav">
-
-<a href="Home.html">
-Home
+<a
+href="Identity.html"
+class="back-btn">
+← Back to Collection
 </a>
-
-<a href="Passport.html">
-Passport
-</a>
-
-<a class="active" href="Identity.html">
-Identity
-</a>
-
-<a href="Profile.html">
-Profile
-</a>
-
-</div>
 
 <script>
 
 const params =
-new URLSearchParams(window.location.search);
+new URLSearchParams(
+window.location.search
+);
 
 const identityId =
-params.get("id");
+params.get('id');
 
 fetch('./data/identities.json')
+
 .then(r=>r.json())
+
 .then(identities=>{
 
 const identity =
@@ -216,29 +206,33 @@ i => i.id === identityId
 
 if(!identity) return;
 
-document.getElementById('identity-icon')
+document.getElementById('icon')
 .innerText =
-identity.icon;
+identity.icon || '🏅';
 
-document.getElementById('identity-name')
+document.getElementById('name')
 .innerText =
 identity.name;
 
-const rarity =
-document.getElementById('identity-rarity');
+document.getElementById('description')
+.innerText =
+identity.description ||
+'RunPassport Identity';
 
-rarity.innerText =
+document.getElementById('rarity-text')
+.innerText =
 identity.rarity.toUpperCase();
 
-rarity.classList.add(identity.rarity);
-
-document.getElementById('identity-description')
+document.getElementById('condition')
 .innerText =
-identity.description;
+identity.condition ||
+'조건 정보 없음';
 
-document.getElementById('identity-condition')
-.innerText =
-identity.condition;
+document.getElementById('rarity-container')
+.innerHTML =
+`<span class="rarity ${identity.rarity}">
+${identity.rarity.toUpperCase()}
+</span>`;
 
 });
 

@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RunPassport</title>
+<title>RunPassport - Home</title>
 
 <style>
 
@@ -26,12 +25,12 @@ padding-bottom:100px;
 
 .greeting{
 font-size:14px;
-color:#B8C0FF;
+opacity:0.7;
 margin-bottom:8px;
 }
 
 .user-name{
-font-size:42px;
+font-size:40px;
 font-weight:700;
 margin-bottom:20px;
 }
@@ -52,41 +51,41 @@ font-size:14px;
 
 .identity-card{
 background:linear-gradient(135deg,#1C2550,#2D3E88);
-border-radius:24px;
 padding:24px;
+border-radius:24px;
 margin-bottom:24px;
 }
 
 .identity-label{
 font-size:12px;
-opacity:0.8;
+opacity:0.7;
 margin-bottom:10px;
 }
 
 .identity-icon{
-font-size:52px;
-margin-bottom:10px;
+font-size:48px;
+margin-bottom:8px;
 }
 
 .identity-name{
-font-size:30px;
+font-size:28px;
 font-weight:700;
 margin-bottom:8px;
 }
 
 .identity-desc{
-opacity:0.9;
 line-height:1.5;
+opacity:0.9;
 }
 
 .section-title{
-font-size:24px;
+font-size:22px;
 font-weight:700;
-margin-bottom:14px;
+margin-bottom:12px;
 margin-top:24px;
 }
 
-.stats{
+.stats-grid{
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:12px;
@@ -94,12 +93,12 @@ gap:12px;
 
 .stat-card{
 background:#1C2550;
-border-radius:20px;
-padding:20px;
+border-radius:18px;
+padding:18px;
 }
 
 .stat-value{
-font-size:30px;
+font-size:28px;
 font-weight:700;
 }
 
@@ -122,16 +121,17 @@ border-radius:20px;
 }
 
 .progress{
-background:#313A6C;
 height:10px;
+background:#313A6C;
 border-radius:999px;
 margin-top:12px;
 overflow:hidden;
 }
 
 .progress-fill{
-background:#D4A63D;
 height:100%;
+background:#D4A63D;
+width:0%;
 }
 
 .bottom-nav{
@@ -159,13 +159,12 @@ color:#D4A63D !important;
 }
 
 </style>
-
 </head>
 
 <body>
 
 <div class="greeting">
-Good morning
+Good Morning
 </div>
 
 <div id="user-name" class="user-name">
@@ -208,7 +207,7 @@ Loading...
 Stats
 </div>
 
-<div class="stats">
+<div class="stats-grid">
 
 <div class="stat-card">
 <div id="distance" class="stat-value">0</div>
@@ -262,25 +261,15 @@ Loading...
 
 <div class="bottom-nav">
 
-<a class="active" href="Home.html">
-Home
-</a>
+<a class="active" href="Home.html">Home</a>
 
-<a href="Run.html">
-Run
-</a>
+<a href="Run.html">Run</a>
 
-<a href="Calendar.html">
-Calendar
-</a>
+<a href="Calendar.html">Calendar</a>
 
-<a href="Passport.html">
-Passport
-</a>
+<a href="Passport.html">Passport</a>
 
-<a href="Profile.html">
-Profile
-</a>
+<a href="Profile.html">Profile</a>
 
 </div>
 
@@ -295,7 +284,7 @@ fetch('./data/cards.json').then(r=>r.json())
 .then(([user,identities,cards])=>{
 
 document.getElementById('user-name').innerText =
-user.name;
+user.name || 'Runner';
 
 document.getElementById('level').innerText =
 'LEVEL ' + user.level;
@@ -322,24 +311,19 @@ i => i.id === user.mainIdentity
 
 if(identity){
 
+document.getElementById('identity-icon').innerText =
+identity.icon;
+
 document.getElementById('identity-name').innerText =
 identity.name;
 
 document.getElementById('identity-description').innerText =
 identity.description;
 
-document.getElementById('identity-icon').innerText =
-identity.icon;
-
 }
 
 const recent =
 user.earnedCards.slice(-3);
-
-const recentContainer =
-document.getElementById('recent-cards');
-
-recentContainer.innerHTML='';
 
 const icons={
 time:'⏰',
@@ -349,6 +333,11 @@ passport:'🌍',
 growth:'📈'
 };
 
+const container =
+document.getElementById('recent-cards');
+
+container.innerHTML='';
+
 recent.forEach(cardId=>{
 
 const card=
@@ -356,16 +345,17 @@ cards.find(c=>c.id===cardId);
 
 if(card){
 
-recentContainer.innerHTML += `
+container.innerHTML += `
 <div class="recent-card">
-${icons[card.category] || '🏅'}
- ${card.name}
+${icons[card.category] || '🏅'} ${card.name}
 </div>
 `;
 
 }
 
 });
+
+if(user.nextGoal){
 
 document.getElementById('goal-name').innerText =
 user.nextGoal.name;
@@ -377,9 +367,10 @@ const percent =
 (user.nextGoal.current /
 user.nextGoal.target) * 100;
 
-document.getElementById('progress-fill')
-.style.width =
+document.getElementById('progress-fill').style.width =
 percent + '%';
+
+}
 
 });
 

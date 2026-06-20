@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -26,6 +25,7 @@ text-align:center;
 }
 
 h1{
+font-size:36px;
 margin-bottom:30px;
 }
 
@@ -34,29 +34,43 @@ margin-bottom:28px;
 }
 
 .value{
-font-size:52px;
+font-size:56px;
 font-weight:700;
 }
 
 .label{
-opacity:0.7;
 margin-top:6px;
+opacity:0.7;
+}
+
+.button-group{
+display:flex;
+gap:12px;
+justify-content:center;
+margin-top:24px;
 }
 
 button{
-width:220px;
-padding:18px;
+padding:16px 22px;
 border:none;
 border-radius:18px;
-font-size:18px;
-font-weight:bold;
-background:#D4A63D;
-color:#0B1023;
+font-size:16px;
+font-weight:700;
 cursor:pointer;
 }
 
+.start-btn{
+background:#D4A63D;
+color:#0B1023;
+}
+
+.finish-btn{
+background:#1C2550;
+color:white;
+}
+
 #status{
-margin-top:24px;
+margin-top:20px;
 opacity:0.8;
 }
 
@@ -85,7 +99,6 @@ color:#D4A63D !important;
 }
 
 </style>
-
 </head>
 
 <body>
@@ -107,43 +120,84 @@ color:#D4A63D !important;
 <div class="label">PACE / KM</div>
 </div>
 
-<button id="startBtn">
+<div id="status">
+GPS 준비 완료
+</div>
+
+<div class="button-group">
+
+<button
+id="startBtn"
+class="start-btn">
 START
 </button>
 
-<div id="status">
-GPS 준비중...
+<button
+id="finishBtn"
+class="finish-btn">
+FINISH
+</button>
+
 </div>
 
 <div class="bottom-nav">
+
 <a href="Home.html">Home</a>
-<a class="active" href="Run.html">Run</a>
-<a href="Passport.html">Passport</a>
-<a href="Identity.html">Identity</a>
-<a href="Profile.html">Profile</a>
+
+<a class="active" href="Run.html">
+Run
+</a>
+
+<a href="Calendar.html">
+Calendar
+</a>
+
+<a href="Passport.html">
+Passport
+</a>
+
+<a href="Profile.html">
+Profile
+</a>
+
 </div>
 
 <script>
 
 let running = false;
+
 let seconds = 0;
+
 let timerInterval;
 
 let watchId;
+
 let totalDistance = 0;
+
 let lastPosition = null;
 
-function calculateDistance(lat1, lon1, lat2, lon2){
+function calculateDistance(
+lat1,
+lon1,
+lat2,
+lon2
+){
 
 const R = 6371;
 
-const dLat = (lat2-lat1) * Math.PI/180;
-const dLon = (lon2-lon1) * Math.PI/180;
+const dLat =
+(lat2-lat1) * Math.PI/180;
+
+const dLon =
+(lon2-lon1) * Math.PI/180;
 
 const a =
-Math.sin(dLat/2) * Math.sin(dLat/2) +
+Math.sin(dLat/2) *
+Math.sin(dLat/2) +
+
 Math.cos(lat1*Math.PI/180) *
 Math.cos(lat2*Math.PI/180) *
+
 Math.sin(dLon/2) *
 Math.sin(dLon/2);
 
@@ -154,7 +208,7 @@ Math.sqrt(a),
 Math.sqrt(1-a)
 );
 
-return R * c;
+return R*c;
 
 }
 
@@ -184,10 +238,14 @@ const paceSeconds =
 seconds / totalDistance;
 
 const paceMin =
-Math.floor(paceSeconds / 60);
+Math.floor(
+paceSeconds / 60
+);
 
 const paceSec =
-Math.floor(paceSeconds % 60);
+Math.floor(
+paceSeconds % 60
+);
 
 document.getElementById('pace')
 .innerText =
@@ -197,22 +255,28 @@ document.getElementById('pace')
 
 }
 
-document.getElementById('startBtn')
+document
+.getElementById('startBtn')
 .addEventListener('click',()=>{
 
 if(!running){
 
 running = true;
 
-timerInterval =
-setInterval(updateTimer,1000);
-
-document.getElementById('startBtn')
+document
+.getElementById('startBtn')
 .innerText = 'PAUSE';
 
-document.getElementById('status')
+document
+.getElementById('status')
 .innerText =
-'GPS 추적 중...';
+'GPS 추적 중';
+
+timerInterval =
+setInterval(
+updateTimer,
+1000
+);
 
 watchId =
 navigator.geolocation.watchPosition(
@@ -237,7 +301,8 @@ lon
 
 totalDistance += distance;
 
-document.getElementById('distance')
+document
+.getElementById('distance')
 .innerText =
 totalDistance.toFixed(2);
 
@@ -250,9 +315,10 @@ lon
 
 },
 
-(error)=>{
+()=>{
 
-document.getElementById('status')
+document
+.getElementById('status')
 .innerText =
 'GPS 권한 필요';
 
@@ -264,16 +330,21 @@ document.getElementById('status')
 
 running = false;
 
-clearInterval(timerInterval);
+clearInterval(
+timerInterval
+);
 
-navigator.geolocation.clearWatch(
+navigator.geolocation
+.clearWatch(
 watchId
 );
 
-document.getElementById('startBtn')
+document
+.getElementById('startBtn')
 .innerText = 'START';
 
-document.getElementById('status')
+document
+.getElementById('status')
 .innerText =
 '일시정지';
 
@@ -281,19 +352,28 @@ document.getElementById('status')
 
 });
 
-if(navigator.geolocation){
+document
+.getElementById('finishBtn')
+.addEventListener('click',()=>{
 
-document.getElementById('status')
-.innerText =
-'GPS 사용 가능';
+clearInterval(
+timerInterval
+);
 
-}else{
+if(watchId){
 
-document.getElementById('status')
-.innerText =
-'GPS 지원 안됨';
+navigator.geolocation
+.clearWatch(
+watchId
+);
 
 }
+
+alert(
+`러닝 완료!\n\n거리: ${totalDistance.toFixed(2)}km`
+);
+
+});
 
 </script>
 

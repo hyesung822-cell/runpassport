@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -26,54 +25,71 @@ padding-bottom:100px;
 
 .profile-card{
 background:#1C2550;
-border-radius:28px;
-padding:28px;
+border-radius:24px;
+padding:24px;
+margin-bottom:24px;
 text-align:center;
-margin-bottom:20px;
 }
 
 .avatar{
-font-size:72px;
-margin-bottom:16px;
+font-size:64px;
+margin-bottom:12px;
 }
 
 .name{
-font-size:32px;
+font-size:28px;
 font-weight:700;
-margin-bottom:10px;
+margin-bottom:8px;
 }
 
 .level{
-color:#D4A63D;
-font-weight:700;
-margin-bottom:10px;
+opacity:.8;
 }
 
 .identity{
-opacity:0.9;
+margin-top:16px;
+padding:12px;
+background:#2A3467;
+border-radius:14px;
 }
 
 .section-title{
-font-size:24px;
+font-size:22px;
 font-weight:700;
-margin:20px 0 12px;
+margin-bottom:14px;
+margin-top:24px;
+}
+
+.stats-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
 }
 
 .stat-card{
 background:#1C2550;
-padding:20px;
-border-radius:20px;
-margin-bottom:12px;
+border-radius:18px;
+padding:18px;
 }
 
 .stat-value{
-font-size:28px;
+font-size:24px;
 font-weight:700;
 }
 
 .stat-label{
-opacity:0.8;
-margin-top:6px;
+opacity:.7;
+margin-top:4px;
+}
+
+.menu-link{
+display:block;
+background:#1C2550;
+padding:18px;
+border-radius:18px;
+text-decoration:none;
+color:white;
+margin-bottom:12px;
 }
 
 .bottom-nav{
@@ -101,7 +117,6 @@ color:#D4A63D !important;
 }
 
 </style>
-
 </head>
 
 <body>
@@ -112,71 +127,89 @@ color:#D4A63D !important;
 🏃
 </div>
 
-<div id="user-name" class="name">
+<div id="name" class="name">
 Loading...
 </div>
 
-<div id="user-level" class="level">
+<div id="level" class="level">
 LEVEL 0
 </div>
 
-<div id="main-identity" class="identity">
+<div class="identity">
+
+<div style="font-size:12px;opacity:.7;">
+MAIN IDENTITY
+</div>
+
+<div
+id="main-identity"
+style="margin-top:6px;font-weight:700;">
 Loading...
+</div>
+
 </div>
 
 </div>
 
 <div class="section-title">
-Running Stats
+Statistics
+</div>
+
+<div class="stats-grid">
+
+<div class="stat-card">
+<div id="distance" class="stat-value">
+0
+</div>
+<div class="stat-label">
+KM
+</div>
 </div>
 
 <div class="stat-card">
-
-<div id="total-runs" class="stat-value">
+<div id="runs" class="stat-value">
 0
 </div>
-
 <div class="stat-label">
-Total Runs
+Runs
 </div>
-
 </div>
 
 <div class="stat-card">
-
-<div id="total-distance" class="stat-value">
+<div id="cards" class="stat-value">
 0
 </div>
-
 <div class="stat-label">
-Total Distance (km)
+Cards
 </div>
-
 </div>
 
 <div class="stat-card">
-
-<div id="total-cards" class="stat-value">
+<div id="identities" class="stat-value">
 0
 </div>
-
 <div class="stat-label">
-Cards Collected
+Identities
+</div>
 </div>
 
 </div>
 
-<div class="stat-card">
-
-<div id="total-identities" class="stat-value">
-0
+<div class="section-title">
+Collection
 </div>
 
-<div class="stat-label">
-Identities Unlocked
-</div>
+<a
+class="menu-link"
+href="Identity.html">
+🌅 Identity Collection
+</a>
 
-</div>
+<a
+class="menu-link"
+href="Passport.html">
+🎴 Card Collection
+</a>
 
 <div class="bottom-nav">
 
@@ -196,10 +229,6 @@ Calendar
 Passport
 </a>
 
-<a href="Identity.html">
-Identity
-</a>
-
 <a class="active" href="Profile.html">
 Profile
 </a>
@@ -209,33 +238,36 @@ Profile
 <script>
 
 Promise.all([
-fetch('./data/user.json').then(r=>r.json()),
-fetch('./data/identities.json').then(r=>r.json())
+fetch('./data/user.json')
+.then(r=>r.json()),
+
+fetch('./data/identities.json')
+.then(r=>r.json())
 ])
 
 .then(([user,identities])=>{
 
-document.getElementById('user-name')
+document.getElementById('name')
 .innerText =
-user.name;
+user.name || 'Runner';
 
-document.getElementById('user-level')
+document.getElementById('level')
 .innerText =
 'LEVEL ' + user.level;
 
-document.getElementById('total-runs')
-.innerText =
-user.runs;
-
-document.getElementById('total-distance')
+document.getElementById('distance')
 .innerText =
 user.distance;
 
-document.getElementById('total-cards')
+document.getElementById('runs')
+.innerText =
+user.runs;
+
+document.getElementById('cards')
 .innerText =
 user.earnedCards.length;
 
-document.getElementById('total-identities')
+document.getElementById('identities')
 .innerText =
 user.unlockedIdentities.length;
 
@@ -248,7 +280,7 @@ if(identity){
 
 document.getElementById('main-identity')
 .innerText =
-identity.icon + ' ' + identity.name;
+identity.name;
 
 }
 

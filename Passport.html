@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -25,8 +24,38 @@ padding-bottom:100px;
 }
 
 h1{
+font-size:36px;
 margin-bottom:24px;
-font-size:32px;
+}
+
+.collection{
+background:#1C2550;
+padding:18px;
+border-radius:18px;
+margin-bottom:24px;
+}
+
+.collection-number{
+font-size:42px;
+font-weight:700;
+}
+
+.collection-label{
+opacity:.7;
+margin-top:4px;
+}
+
+.section-title{
+font-size:22px;
+font-weight:700;
+margin-bottom:14px;
+margin-top:20px;
+}
+
+.card-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
 }
 
 .card-link{
@@ -36,54 +65,42 @@ color:white;
 
 .card{
 background:#1C2550;
-border-radius:24px;
-padding:20px;
-margin-bottom:16px;
-text-align:center;
-transition:0.2s;
-}
-
-.card:hover{
-transform:translateY(-2px);
-}
-
-.card-icon{
-font-size:48px;
-margin-bottom:10px;
+border-radius:18px;
+padding:16px;
+min-height:120px;
 }
 
 .card-name{
-font-size:20px;
+font-size:18px;
 font-weight:700;
-margin-bottom:8px;
+margin-bottom:10px;
+}
+
+.category{
+font-size:12px;
+opacity:.7;
+margin-bottom:10px;
 }
 
 .rarity{
 font-size:12px;
 font-weight:700;
-letter-spacing:1px;
 }
 
 .common{
-color:#C9CDD4;
+color:#BFC5D2;
 }
 
 .rare{
-color:#4DA3FF;
+color:#5DA9FF;
 }
 
 .epic{
-color:#B06CFF;
+color:#C07BFF;
 }
 
 .legendary{
-color:#F5C451;
-}
-
-.card-category{
-margin-top:10px;
-font-size:12px;
-opacity:0.7;
+color:#D4A63D;
 }
 
 .bottom-nav{
@@ -111,14 +128,33 @@ color:#D4A63D !important;
 }
 
 </style>
-
 </head>
 
 <body>
 
 <h1>Passport</h1>
 
-<div id="card-list">
+<div class="collection">
+
+<div
+id="card-count"
+class="collection-number">
+0
+</div>
+
+<div class="collection-label">
+Cards Collected
+</div>
+
+</div>
+
+<div class="section-title">
+Collection
+</div>
+
+<div
+id="card-grid"
+class="card-grid">
 Loading...
 </div>
 
@@ -128,7 +164,7 @@ Loading...
 Home
 </a>
 
-<a class="active" href="Run.html">
+<a href="Run.html">
 Run
 </a>
 
@@ -140,10 +176,6 @@ Calendar
 Passport
 </a>
 
-<a href="Identity.html">
-Identity
-</a>
-
 <a href="Profile.html">
 Profile
 </a>
@@ -152,58 +184,55 @@ Profile
 
 <script>
 
-function getIcon(category){
-
-if(category==="time") return "⏰";
-if(category==="habit") return "🔥";
-if(category==="distance") return "🏃";
-if(category==="passport") return "🌍";
-if(category==="growth") return "📈";
-
-return "🏅";
-
-}
-
 Promise.all([
-fetch('./data/cards.json').then(r=>r.json()),
-fetch('./data/user.json').then(r=>r.json())
+fetch('./data/cards.json')
+.then(r=>r.json()),
+
+fetch('./data/user.json')
+.then(r=>r.json())
 ])
 
 .then(([cards,user])=>{
 
+const earned =
+user.earnedCards;
+
 const unlockedCards =
 cards.filter(card =>
-user.earnedCards.includes(card.id)
+earned.includes(card.id)
 );
 
+document.getElementById('card-count')
+.innerText =
+unlockedCards.length;
+
 const container =
-document.getElementById('card-list');
+document.getElementById('card-grid');
 
-container.innerHTML = '';
+container.innerHTML='';
 
-unlockedCards.forEach(card => {
+unlockedCards.forEach(card=>{
 
 container.innerHTML += `
 
-<a class="card-link"
-href="Card.html?id=${card.id}">
+<a
+class="card-link"
+href="Card.html?id=${card.id}"
+>
 
 <div class="card">
-
-<div class="card-icon">
-${getIcon(card.category)}
-</div>
 
 <div class="card-name">
 ${card.name}
 </div>
 
-<div class="rarity ${card.rarity}">
-${card.rarity.toUpperCase()}
+<div class="category">
+${card.category}
 </div>
 
-<div class="card-category">
-${card.category.toUpperCase()}
+<div
+class="rarity ${card.rarity}">
+${card.rarity.toUpperCase()}
 </div>
 
 </div>
@@ -213,15 +242,6 @@ ${card.category.toUpperCase()}
 `;
 
 });
-
-})
-
-.catch(error=>{
-
-console.error(error);
-
-document.getElementById('card-list')
-.innerHTML = '데이터 로딩 실패';
 
 });
 

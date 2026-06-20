@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -21,12 +20,29 @@ color:white;
 max-width:430px;
 margin:auto;
 padding:24px;
-padding-bottom:100px;
+padding-bottom:40px;
 }
 
 h1{
+font-size:36px;
 margin-bottom:24px;
-font-size:32px;
+}
+
+.summary{
+background:#1C2550;
+padding:20px;
+border-radius:20px;
+margin-bottom:24px;
+}
+
+.summary-value{
+font-size:42px;
+font-weight:700;
+}
+
+.summary-label{
+opacity:.7;
+margin-top:4px;
 }
 
 .identity-link{
@@ -34,161 +50,135 @@ text-decoration:none;
 color:white;
 }
 
-.identity{
+.identity-card{
 background:#1C2550;
-border-radius:24px;
-padding:24px;
-margin-bottom:16px;
-text-align:center;
+border-radius:18px;
+padding:18px;
+margin-bottom:12px;
 }
 
 .icon{
-font-size:56px;
-margin-bottom:12px;
+font-size:36px;
+margin-bottom:8px;
 }
 
 .name{
-font-size:24px;
+font-size:20px;
 font-weight:700;
-margin-bottom:10px;
+margin-bottom:8px;
 }
 
 .rarity{
-font-size:13px;
+font-size:12px;
 font-weight:700;
-letter-spacing:1px;
-margin-bottom:12px;
-}
-
-.common{
-color:#C9CDD4;
 }
 
 .rare{
-color:#4DA3FF;
+color:#5DA9FF;
 }
 
 .epic{
-color:#B06CFF;
+color:#C07BFF;
 }
 
 .legendary{
-color:#F5C451;
-}
-
-.description{
-line-height:1.6;
-opacity:0.9;
-margin-bottom:16px;
-}
-
-.condition{
-font-size:13px;
 color:#D4A63D;
 }
 
-.bottom-nav{
-position:fixed;
-bottom:0;
-left:0;
-right:0;
-max-width:430px;
-margin:auto;
-background:#141A33;
-display:flex;
-justify-content:space-around;
-padding:18px 0;
-border-top:1px solid #252D52;
-}
-
-.bottom-nav a{
-color:white;
+.back-btn{
+display:block;
+margin-top:20px;
+text-align:center;
+background:#D4A63D;
+color:#0B1023;
+padding:16px;
+border-radius:18px;
 text-decoration:none;
-font-size:14px;
-}
-
-.active{
-color:#D4A63D !important;
+font-weight:700;
 }
 
 </style>
-
 </head>
 
 <body>
 
-<h1>Identity</h1>
+<h1>Identity Collection</h1>
+
+<div class="summary">
+
+<div
+id="identity-count"
+class="summary-value">
+0
+</div>
+
+<div class="summary-label">
+Unlocked Identities
+</div>
+
+</div>
 
 <div id="identity-list">
 Loading...
 </div>
 
-<div class="bottom-nav">
-
-<a href="Home.html">
-Home
+<a
+href="Profile.html"
+class="back-btn">
+← Back to Profile
 </a>
-
-<a href="Passport.html">
-Passport
-</a>
-
-<a class="active" href="Identity.html">
-Identity
-</a>
-
-<a href="Profile.html">
-Profile
-</a>
-
-</div>
 
 <script>
 
 Promise.all([
-fetch('./data/identities.json').then(r=>r.json()),
-fetch('./data/user.json').then(r=>r.json())
+fetch('./data/identities.json')
+.then(r=>r.json()),
+
+fetch('./data/user.json')
+.then(r=>r.json())
 ])
 
 .then(([identities,user])=>{
 
-const unlockedIdentities =
+const unlocked =
+user.unlockedIdentities;
+
+const list =
 identities.filter(identity =>
-user.unlockedIdentities.includes(identity.id)
+unlocked.includes(identity.id)
 );
+
+document.getElementById('identity-count')
+.innerText =
+list.length;
 
 const container =
 document.getElementById('identity-list');
 
 container.innerHTML = '';
 
-unlockedIdentities.forEach(identity => {
+list.forEach(identity=>{
 
 container.innerHTML += `
 
-<a class="identity-link"
-href="IdentityDetail.html?id=${identity.id}">
+<a
+class="identity-link"
+href="IdentityDetail.html?id=${identity.id}"
+>
 
-<div class="identity">
+<div class="identity-card">
 
 <div class="icon">
-${identity.icon}
+${identity.icon || '🏅'}
 </div>
 
 <div class="name">
 ${identity.name}
 </div>
 
-<div class="rarity ${identity.rarity}">
+<div
+class="rarity ${identity.rarity}">
 ${identity.rarity.toUpperCase()}
-</div>
-
-<div class="description">
-${identity.description}
-</div>
-
-<div class="condition">
-${identity.condition}
 </div>
 
 </div>
@@ -198,16 +188,6 @@ ${identity.condition}
 `;
 
 });
-
-})
-
-.catch(error=>{
-
-console.error(error);
-
-document.getElementById('identity-list')
-.innerHTML =
-'데이터 로딩 실패';
 
 });
 

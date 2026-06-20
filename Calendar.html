@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -25,38 +24,61 @@ padding-bottom:100px;
 }
 
 h1{
+font-size:36px;
 margin-bottom:24px;
-font-size:32px;
+}
+
+.summary{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+margin-bottom:24px;
+}
+
+.summary-card{
+background:#1C2550;
+padding:18px;
+border-radius:18px;
+}
+
+.summary-value{
+font-size:28px;
+font-weight:700;
+}
+
+.summary-label{
+opacity:.7;
+margin-top:4px;
+}
+
+.section-title{
+font-size:22px;
+font-weight:700;
+margin-bottom:14px;
+margin-top:24px;
 }
 
 .calendar{
 display:grid;
 grid-template-columns:repeat(7,1fr);
 gap:8px;
-margin-bottom:32px;
 }
 
 .day{
 background:#1C2550;
 border-radius:14px;
+min-height:65px;
 padding:10px;
 text-align:center;
-min-height:65px;
 }
 
 .day-number{
 font-size:14px;
 }
 
-.run{
+.run-icon{
 margin-top:8px;
 font-size:14px;
-}
-
-.section-title{
-font-size:24px;
-font-weight:700;
-margin-bottom:16px;
 }
 
 .run-link{
@@ -73,7 +95,7 @@ margin-bottom:12px;
 
 .date{
 font-size:14px;
-opacity:0.7;
+opacity:.7;
 }
 
 .distance{
@@ -84,7 +106,7 @@ margin-top:8px;
 
 .duration{
 margin-top:6px;
-opacity:0.8;
+opacity:.8;
 }
 
 .bottom-nav{
@@ -112,12 +134,37 @@ color:#D4A63D !important;
 }
 
 </style>
-
 </head>
 
 <body>
 
 <h1>Calendar</h1>
+
+<div class="summary">
+
+<div class="summary-card">
+<div id="monthDistance" class="summary-value">
+0
+</div>
+<div class="summary-label">
+KM THIS MONTH
+</div>
+</div>
+
+<div class="summary-card">
+<div id="monthRuns" class="summary-value">
+0
+</div>
+<div class="summary-label">
+RUNS
+</div>
+</div>
+
+</div>
+
+<div class="section-title">
+June
+</div>
 
 <div id="calendar" class="calendar">
 Loading...
@@ -159,9 +206,25 @@ Profile
 
 fetch('./data/runs.json')
 
-.then(response => response.json())
+.then(r=>r.json())
 
-.then(runs => {
+.then(runs=>{
+
+let totalDistance = 0;
+
+runs.forEach(run=>{
+
+totalDistance += run.distance;
+
+});
+
+document.getElementById('monthDistance')
+.innerText =
+totalDistance.toFixed(1);
+
+document.getElementById('monthRuns')
+.innerText =
+runs.length;
 
 const calendar =
 document.getElementById('calendar');
@@ -171,7 +234,7 @@ calendar.innerHTML = '';
 for(let day=1; day<=30; day++){
 
 const runExists =
-runs.find(run => {
+runs.find(run=>{
 
 const runDay =
 Number(
@@ -190,7 +253,7 @@ calendar.innerHTML += `
 ${day}
 </div>
 
-<div class="run">
+<div class="run-icon">
 ${runExists ? '🏃' : ''}
 </div>
 
@@ -208,7 +271,7 @@ runList.innerHTML = '';
 runs
 .slice()
 .reverse()
-.forEach(run => {
+.forEach(run=>{
 
 runList.innerHTML += `
 
@@ -238,16 +301,6 @@ ${Math.floor(run.duration/60)}분
 `;
 
 });
-
-})
-
-.catch(error => {
-
-console.error(error);
-
-document.getElementById('calendar')
-.innerHTML =
-'러닝 데이터를 불러오지 못했습니다.';
 
 });
 

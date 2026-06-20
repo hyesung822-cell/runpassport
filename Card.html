@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -24,11 +23,12 @@ padding:24px;
 padding-bottom:100px;
 }
 
-.card{
-background:#1C2550;
+.card-hero{
+background:linear-gradient(135deg,#1C2550,#2D3E88);
 border-radius:28px;
-padding:28px;
+padding:32px;
 text-align:center;
+margin-bottom:24px;
 }
 
 .icon{
@@ -36,221 +36,217 @@ font-size:72px;
 margin-bottom:16px;
 }
 
-.name{
+.card-name{
 font-size:32px;
 font-weight:700;
-margin-bottom:10px;
+margin-bottom:12px;
 }
 
 .rarity{
-font-size:14px;
+display:inline-block;
+padding:8px 16px;
+border-radius:999px;
+font-size:12px;
 font-weight:700;
-letter-spacing:1px;
-margin-bottom:24px;
+margin-bottom:20px;
 }
 
 .common{
-color:#C9CDD4;
+background:#BFC5D2;
+color:#0B1023;
 }
 
 .rare{
-color:#4DA3FF;
+background:#5DA9FF;
+color:white;
 }
 
 .epic{
-color:#B06CFF;
+background:#C07BFF;
+color:white;
 }
 
 .legendary{
-color:#F5C451;
+background:#D4A63D;
+color:#0B1023;
 }
 
-.section{
-margin-top:24px;
-text-align:left;
+.description{
+line-height:1.6;
+opacity:.9;
+}
+
+.section-title{
+font-size:22px;
+font-weight:700;
+margin-bottom:12px;
+}
+
+.info-card{
+background:#1C2550;
+padding:18px;
+border-radius:18px;
+margin-bottom:12px;
 }
 
 .label{
-font-size:13px;
-font-weight:700;
-color:#D4A63D;
-margin-bottom:8px;
+font-size:12px;
+opacity:.7;
+margin-bottom:6px;
 }
 
 .value{
-line-height:1.6;
-opacity:0.95;
+font-size:18px;
+font-weight:700;
 }
 
-.back{
-display:inline-block;
+.back-btn{
+display:block;
 margin-top:20px;
-color:#D4A63D;
+text-align:center;
+background:#D4A63D;
+color:#0B1023;
+padding:16px;
+border-radius:18px;
 text-decoration:none;
-}
-
-.bottom-nav{
-position:fixed;
-bottom:0;
-left:0;
-right:0;
-max-width:430px;
-margin:auto;
-background:#141A33;
-display:flex;
-justify-content:space-around;
-padding:18px 0;
-border-top:1px solid #252D52;
-}
-
-.bottom-nav a{
-color:white;
-text-decoration:none;
-font-size:14px;
-}
-
-.active{
-color:#D4A63D !important;
+font-weight:700;
 }
 
 </style>
-
 </head>
 
 <body>
 
-<div class="card">
+<div class="card-hero">
 
-<div id="card-icon" class="icon">
+<div id="icon" class="icon">
 🏅
 </div>
 
-<div id="card-name" class="name">
+<div id="card-name" class="card-name">
 Loading...
 </div>
 
-<div id="card-rarity" class="rarity">
+<div id="rarity">
 Loading...
 </div>
 
-<div class="section">
+<div id="description" class="description">
+Loading...
+</div>
+
+</div>
+
+<div class="section-title">
+Card Info
+</div>
+
+<div class="info-card">
 
 <div class="label">
-설명
+CATEGORY
 </div>
 
-<div id="card-description" class="value">
+<div id="category" class="value">
 Loading...
 </div>
 
 </div>
 
-<div class="section">
+<div class="info-card">
 
 <div class="label">
-획득 조건
+CARD ID
 </div>
 
-<div id="card-condition" class="value">
+<div id="card-id" class="value">
 Loading...
 </div>
 
 </div>
 
-<div class="section">
-
-<div class="label">
-카테고리
-</div>
-
-<div id="card-category" class="value">
-Loading...
-</div>
-
-</div>
-
-</div>
-
-<a class="back" href="Passport.html">
-← Passport로 돌아가기
+<a
+href="Passport.html"
+class="back-btn">
+← Back to Passport
 </a>
-
-<div class="bottom-nav">
-
-<a href="Home.html">
-Home
-</a>
-
-<a class="active" href="Passport.html">
-Passport
-</a>
-
-<a href="Identity.html">
-Identity
-</a>
-
-<a href="Profile.html">
-Profile
-</a>
-
-</div>
 
 <script>
 
-function getIcon(category){
-
-if(category==="time") return "⏰";
-if(category==="habit") return "🔥";
-if(category==="distance") return "🏃";
-if(category==="passport") return "🌍";
-if(category==="growth") return "📈";
-
-return "🏅";
-
-}
-
 const params =
-new URLSearchParams(window.location.search);
+new URLSearchParams(
+window.location.search
+);
 
 const cardId =
-params.get("id");
+params.get('id');
 
 fetch('./data/cards.json')
+
 .then(r=>r.json())
+
 .then(cards=>{
 
 const card =
-cards.find(c=>c.id===cardId);
+cards.find(
+c => c.id === cardId
+);
 
 if(!card) return;
 
-document.getElementById('card-icon')
+const icons = {
+time:'⏰',
+habit:'🔥',
+distance:'🏃',
+passport:'🌍',
+growth:'📈'
+};
+
+document.getElementById('icon')
 .innerText =
-getIcon(card.category);
+icons[card.category] || '🏅';
 
 document.getElementById('card-name')
 .innerText =
 card.name;
 
-const rarity =
-document.getElementById('card-rarity');
-
-rarity.innerText =
-card.rarity.toUpperCase();
-
-rarity.classList.add(card.rarity);
-
-document.getElementById('card-description')
+document.getElementById('category')
 .innerText =
-card.description;
+card.category;
 
-document.getElementById('card-condition')
+document.getElementById('card-id')
 .innerText =
-card.condition;
+card.id;
 
-document.getElementById('card-category')
+document.getElementById('rarity')
+.innerHTML =
+`<span class="rarity ${card.rarity}">
+${card.rarity.toUpperCase()}
+</span>`;
+
+const descriptions = {
+
+time:
+'특정 시간대 러닝을 통해 획득한 카드입니다.',
+
+habit:
+'꾸준함과 습관 형성을 통해 획득한 카드입니다.',
+
+distance:
+'누적 거리 달성을 통해 획득한 카드입니다.',
+
+passport:
+'새로운 지역과 도시를 탐험하여 획득한 카드입니다.',
+
+growth:
+'기록 향상과 성장으로 획득한 카드입니다.'
+
+};
+
+document.getElementById('description')
 .innerText =
-card.category.toUpperCase();
+descriptions[card.category] ||
+'RunPassport 카드';
 
 });
 
